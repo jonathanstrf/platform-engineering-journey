@@ -153,6 +153,44 @@
       <aside class="notes">Roadmap de la charla. Cada acto = un problema real que resolvimos.</aside>
     </section>
 
+    <!-- SLIDE 5: ACTO 1 -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 1 ·</span> El problema del entorno local</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 48px 1fr;align-items:stretch;padding:14px 48px 0;">
+          <div style="display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(135deg,#7f1d1d,#991b1b);padding:14px 20px;display:flex;align-items:center;gap:10px;">
+              <span style="color:#ef4444;font-size:22px;font-weight:900;">✗</span>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Antes</span>
+            </div>
+            <div style="flex:1;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-top:none;padding:22px 18px;display:flex;flex-direction:column;gap:16px;">
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Node 24 en local, Node 18 en el servidor</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Sin .tool-versions en el repo</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Horas de debugging</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">"En mi máquina funciona"</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#E8560A;font-size:26px;">→</div>
+          <div style="display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(135deg,#14532d,#166534);padding:14px 20px;display:flex;align-items:center;gap:10px;">
+              <span style="color:#22c55e;font-size:22px;font-weight:900;">✓</span>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Después</span>
+            </div>
+            <div style="flex:1;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-top:none;padding:22px 18px;display:flex;flex-direction:column;gap:16px;">
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">.tool-versions en el repo</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">asdf / mise para todos</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Local = CI = Staging</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Onboarding en minutos</span></div>
+              <div class="fragment" data-autoslide="0" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Resuelto una vez, para todos</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="story-quote">"Horas para descubrir que el problema era un número."</div>
+      </div>
+      <aside class="notes">Historia: versión equivocada de Node. "Horas para descubrir que el problema era un número." Solución: .tool-versions + asdf/mise.</aside>
+    </section>
+
   </div>
 </div>
 <script src="../vendor/reveal.js/dist/reveal.js"></script>
