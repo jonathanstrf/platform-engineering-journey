@@ -1,0 +1,14 @@
+{
+  "name": "pe-talk-slides",
+  "version": "1.0.0",
+  "scripts": {
+    "assets": "node src/gradients.js",
+    "build":  "node src/slides.js",
+    "flyer":  "node src/flyer.js",
+    "all":    "npm run assets && npm run build && npm run flyer"
+  },
+  "dependencies": {
+    "pngjs":     "^7.0.0",
+    "pptxgenjs": "^4.0.1"
+  }
+}

@@ -1,0 +1,714 @@
+# De Cero a Producción — Reveal.js Migration Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Migrate the 11-slide "De Cero a Producción" deck from PptxGenJS to a self-contained Reveal.js HTML file with dark theme, auto-advancing fragments, and speaker notes.
+
+**Architecture:** Single `dist/index.html` referencing a vendored local copy of Reveal.js at `vendor/reveal.js/`. All slide content is inline HTML/CSS. No build step — open directly in browser. Speaker notes via Reveal's built-in notes plugin (`S` key).
+
+**Tech Stack:** Reveal.js 5.x (local copy), HTML/CSS inline styles, RevealNotes plugin.
+
+---
+
+### Task 1: Install Reveal.js and vendor the files
+
+**Files:**
+- Create: `vendor/reveal.js/dist/reveal.css`
+- Create: `vendor/reveal.js/dist/reveal.js`
+- Create: `vendor/reveal.js/dist/reset.css`
+- Create: `vendor/reveal.js/dist/theme/black.css`
+- Create: `vendor/reveal.js/plugin/notes/notes.js`
+
+- [ ] **Step 1: Install reveal.js**
+
+```powershell
+cd D:\Proyects\Notion
+npm install reveal.js
+```
+
+Expected: `node_modules/reveal.js/dist/` and `node_modules/reveal.js/plugin/` created.
+
+- [ ] **Step 2: Copy vendor files**
+
+```powershell
+New-Item -ItemType Directory -Force "vendor/reveal.js/dist/theme"
+New-Item -ItemType Directory -Force "vendor/reveal.js/plugin/notes"
+Copy-Item "node_modules/reveal.js/dist/reveal.css"       "vendor/reveal.js/dist/reveal.css"
+Copy-Item "node_modules/reveal.js/dist/reveal.js"        "vendor/reveal.js/dist/reveal.js"
+Copy-Item "node_modules/reveal.js/dist/reset.css"        "vendor/reveal.js/dist/reset.css"
+Copy-Item "node_modules/reveal.js/dist/theme/black.css"  "vendor/reveal.js/dist/theme/black.css"
+Copy-Item "node_modules/reveal.js/plugin/notes/notes.js" "vendor/reveal.js/plugin/notes/notes.js"
+```
+
+- [ ] **Step 3: Verify**
+
+```powershell
+Get-ChildItem vendor/reveal.js -Recurse -File | Select-Object Name
+```
+
+Expected: `reveal.css`, `reveal.js`, `reset.css`, `black.css`, `notes.js`.
+
+- [ ] **Step 4: Commit**
+
+```powershell
+git add vendor/ package.json package-lock.json
+git commit -m "feat: vendor reveal.js for offline presentation"
+```
+
+---
+
+### Task 2: HTML shell + global CSS + Slide 1 (Portada)
+
+**Files:**
+- Create: `dist/index.html`
+
+- [ ] **Step 1: Create dist/index.html**
+
+```html
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Cero a Producción — Jonathan Ramírez</title>
+  <link rel="stylesheet" href="../vendor/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../vendor/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../vendor/reveal.js/dist/theme/black.css">
+  <style>
+    body { background: #0a080f; }
+    .reveal { font-family: Arial, sans-serif; }
+    .reveal .slides section {
+      height: 100%; padding: 0; top: 0 !important;
+      overflow: hidden; text-align: left;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(124,58,237,0.09) 0%, transparent 60%),
+        #0a080f;
+    }
+    .reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
+      text-transform:none; margin:0; font-weight:normal;
+      color:inherit; font-size:inherit; line-height:1.2; letter-spacing:normal;
+    }
+    .reveal p { margin:0; }
+    .reveal ul,.reveal ol { padding:0; margin:0; list-style:none; }
+    .reveal li { margin:0; }
+    .reveal .fragment { opacity:0; transition:opacity 0.4s ease; }
+    .reveal .fragment.visible { opacity:1; }
+
+    .top-bar {
+      position:absolute; top:0; left:0; right:0; height:4px;
+      background:linear-gradient(90deg,#E8560A,#7C3AED); z-index:10; flex-shrink:0;
+    }
+    .act-label {
+      font-size:17px; color:#E8560A; letter-spacing:3px;
+      text-transform:uppercase; padding:22px 48px 0; flex-shrink:0;
+    }
+    .act-label .dim { color:#555; }
+    .slide-heading {
+      font-size:38px; font-family:'Arial Black',Arial,sans-serif;
+      font-weight:900; color:#e8e8e8; padding:10px 48px 0; flex-shrink:0;
+    }
+    .story-quote {
+      font-size:17px; color:#E8560A; font-style:italic;
+      text-align:center; padding:0 48px 18px; flex-shrink:0;
+    }
+    .slide-body {
+      display:flex; flex-direction:column;
+      height:100%; padding-top:4px;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- SLIDE 1: PORTADA -->
+    <section style="background:linear-gradient(135deg,rgba(124,58,237,0.07) 0%,#0a080f 60%),#0a080f;">
+      <div class="top-bar"></div>
+      <div style="position:absolute;top:4px;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);"></div>
+      <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;padding:4px 64px 0 56px;">
+        <div style="font-size:14px;color:#E8560A;font-weight:700;letter-spacing:1px;margin-bottom:28px;">N-iX</div>
+        <h1 style="font-family:'Arial Black',Arial,sans-serif;font-size:88px;font-weight:900;color:#e8e8e8;line-height:1;margin-bottom:20px;">De Cero a<br>Producción</h1>
+        <div style="width:100%;height:2px;background:rgba(255,255,255,0.12);margin-bottom:18px;"></div>
+        <p style="font-size:28px;color:#E8560A;font-style:italic;margin-bottom:52px;">Un viaje de Platform Engineering a través de equipos reales</p>
+        <p style="font-size:22px;color:#e8e8e8;margin-bottom:6px;"><strong>Jonathan Ramírez</strong> <span style="color:#555;">· N-iX</span></p>
+        <p style="font-size:16px;color:#E8560A;">Track de Platform Engineering · DevOpsDays Medellín 2026</p>
+      </div>
+      <aside class="notes">Apertura — historia persona inquieta. Avanzar silenciosamente al terminar. No te presentes todavía.</aside>
+    </section>
+
+  </div>
+</div>
+<script src="../vendor/reveal.js/dist/reveal.js"></script>
+<script src="../vendor/reveal.js/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true, width: 1280, height: 720, margin: 0,
+    transition: 'slide', transitionSpeed: 'default',
+    autoSlide: 0, loop: false, controls: true, progress: true,
+    plugins: [RevealNotes]
+  });
+</script>
+</body>
+</html>
+```
+
+- [ ] **Step 2: Open in browser and verify**
+
+Open `dist/index.html` in Chrome. Expected: dark background, orange left stripe, large white title, orange italic subtitle, no console errors.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: reveal.js shell + slide 1 portada"
+```
+
+---
+
+### Task 3: Slides 2, 3, 4
+
+**Files:**
+- Modify: `dist/index.html` — insert before `</div>` (/.slides closing tag)
+
+- [ ] **Step 1: Add Slide 2 — El hilo conductor**
+
+```html
+    <!-- SLIDE 2: EL HILO CONDUCTOR -->
+    <section>
+      <div class="top-bar"></div>
+      <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;">
+        <div style="font-size:17px;color:#E8560A;font-weight:700;letter-spacing:1px;padding:24px 64px 0;">El hilo conductor</div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px 80px;">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:4px solid #E8560A;border-radius:4px;padding:48px 56px;">
+            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:42px;font-weight:900;color:#e8e8e8;line-height:1.3;text-align:center;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
+            <p style="font-size:22px;color:#555;text-align:center;margin-top:24px;">Todo lo demás es el camino para llegar ahí.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">[Avanzar en silencio — no hay spoken cue aquí. La frase queda en pantalla mientras te presentas.]</aside>
+    </section>
+```
+
+- [ ] **Step 2: Add Slide 3 — Los 4 problemas**
+
+```html
+    <!-- SLIDE 3: LOS 4 PROBLEMAS -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="slide-heading" style="padding-top:14px;">Los mismos 4 problemas, siempre</div>
+        <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:16px 48px 0;">
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:24px 14px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">1</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Entorno local</span>
+            <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Días configurando.<br>Funciona en mi máquina.</p>
+            <div style="font-size:36px;margin-top:auto;padding-top:14px;">💻</div>
+          </div>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:24px 14px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">2</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Infraestructura</span>
+            <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Cada equipo despliega diferente. Deriva total.</p>
+            <div style="font-size:36px;margin-top:auto;padding-top:14px;">🖥️</div>
+          </div>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:24px 14px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">3</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Escala</span>
+            <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">El equipo de plataforma se vuelve el cuello de botella.</p>
+            <div style="font-size:36px;margin-top:auto;padding-top:14px;">👥</div>
+          </div>
+          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:24px 14px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">4</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Visibilidad</span>
+            <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Algo falla.<br>Nadie sabe dónde mirar.</p>
+            <div style="font-size:36px;margin-top:auto;padding-top:14px;">👁️</div>
+          </div>
+        </div>
+        <div class="story-quote">"No son problemas de personas. Son problemas de plataforma."</div>
+      </div>
+      <aside class="notes">Presentar los 4 problemas. ¿Quién ha vivido esto? Pausa. "No son problemas de personas. Son problemas de plataforma."</aside>
+    </section>
+```
+
+- [ ] **Step 3: Add Slide 4 — Un viaje de 5 actos**
+
+```html
+    <!-- SLIDE 4: 5 ACTOS -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="slide-heading" style="padding-top:14px;">Un viaje de 5 actos</div>
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:0 48px;">
+          <div class="fragment" style="display:flex;align-items:center;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#fff;">1</span></div>
+            <div style="flex:1;height:56px;background:rgba(232,86,10,0.15);border:1px solid rgba(232,86,10,0.3);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El problema del entorno local</span></div>
+          </div>
+          <div class="fragment" style="display:flex;align-items:center;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#fff;">2</span></div>
+            <div style="flex:1;height:56px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El problema de la infraestructura</span></div>
+          </div>
+          <div class="fragment" style="display:flex;align-items:center;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#fff;">3</span></div>
+            <div style="flex:1;height:56px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El problema de la escala</span></div>
+          </div>
+          <div class="fragment" style="display:flex;align-items:center;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#fff;">4</span></div>
+            <div style="flex:1;height:56px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El ciclo de retroalimentación</span></div>
+          </div>
+          <div class="fragment" data-autoslide="0" style="display:flex;align-items:center;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#fff;">5</span></div>
+            <div style="flex:1;height:56px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">Tres cosas</span></div>
+          </div>
+        </div>
+        <div class="story-quote">"Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie."</div>
+      </div>
+      <aside class="notes">Roadmap de la charla. Cada acto = un problema real que resolvimos.</aside>
+    </section>
+```
+
+- [ ] **Step 4: Verify slides 2–4 in browser**
+
+Navigate with arrow keys. Expected: slide 2 — centered quote card with orange left border; slide 3 — 4 cards auto-appear at 1s, then pause; slide 4 — 5 rows auto-appear at 1s, then pause.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slides 2-4 hilo, problemas, actos"
+```
+
+---
+
+### Task 4: Slide 5 — Acto 1 (Entorno local, before/after)
+
+**Files:**
+- Modify: `dist/index.html`
+
+- [ ] **Step 1: Add Slide 5**
+
+Insert before `</div>` (/.slides):
+
+```html
+    <!-- SLIDE 5: ACTO 1 -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 1 ·</span> El problema del entorno local</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 48px 1fr;align-items:stretch;padding:14px 48px 0;">
+          <div style="display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(135deg,#7f1d1d,#991b1b);padding:14px 20px;display:flex;align-items:center;gap:10px;">
+              <span style="color:#ef4444;font-size:22px;font-weight:900;">✗</span>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Antes</span>
+            </div>
+            <div style="flex:1;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-top:none;padding:22px 18px;display:flex;flex-direction:column;gap:16px;">
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Node 24 en local, Node 18 en el servidor</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Sin .tool-versions en el repo</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Horas de debugging</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">"En mi máquina funciona"</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#E8560A;font-size:26px;">→</div>
+          <div style="display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(135deg,#14532d,#166534);padding:14px 20px;display:flex;align-items:center;gap:10px;">
+              <span style="color:#22c55e;font-size:22px;font-weight:900;">✓</span>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Después</span>
+            </div>
+            <div style="flex:1;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-top:none;padding:22px 18px;display:flex;flex-direction:column;gap:16px;">
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">.tool-versions en el repo</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">asdf / mise para todos</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Local = CI = Staging</span></div>
+              <div class="fragment" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Onboarding en minutos</span></div>
+              <div class="fragment" data-autoslide="0" style="display:flex;gap:10px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:19px;color:#ccc;">Resuelto una vez, para todos</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="story-quote">"Horas para descubrir que el problema era un número."</div>
+      </div>
+      <aside class="notes">Historia: versión equivocada de Node. "Horas para descubrir que el problema era un número." Solución: .tool-versions + asdf/mise.</aside>
+    </section>
+```
+
+- [ ] **Step 2: Verify slide 5**
+
+Expected: two columns with red/green headers; Before items appear (4), then After items appear (5, last one pauses); quote at bottom.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slide 5 acto 1 before/after"
+```
+
+---
+
+### Task 5: Slide 6 — Acto 2 (Infraestructura, 3 columns)
+
+**Files:**
+- Modify: `dist/index.html`
+
+- [ ] **Step 1: Add Slide 6**
+
+```html
+    <!-- SLIDE 6: ACTO 2 -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 2 ·</span> El problema de la infraestructura</div>
+        <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:14px 48px 0;">
+          <div class="fragment" style="display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(135deg,#7f1d1d,#991b1b);padding:14px 16px;text-align:center;">
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#fff;">Sin estándar</span>
+            </div>
+            <div style="flex:1;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-top:none;padding:18px 16px;display:flex;flex-direction:column;gap:14px;">
+              <div style="display:flex;gap:8px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Bash script</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">GitHub Action a medias</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Deploy manual</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#ef4444;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">"¿Funciona en prod?"</span></div>
+            </div>
+          </div>
+          <div class="fragment" style="display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(135deg,#E8560A,#C94D08);padding:14px 16px;text-align:center;">
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#fff;">IaC como contrato</span>
+            </div>
+            <div style="flex:1;background:rgba(232,86,10,0.08);border:1px solid rgba(232,86,10,0.25);border-top:none;padding:18px 16px;display:flex;flex-direction:column;gap:14px;">
+              <div style="display:flex;gap:8px;"><span style="color:#E8560A;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Módulos versionados</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#E8560A;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Revisión compartida</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#E8560A;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Definición de "correcto"</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#E8560A;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Drift visible</span></div>
+            </div>
+          </div>
+          <div class="fragment" data-autoslide="0" style="display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(135deg,#14532d,#166534);padding:14px 16px;text-align:center;">
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#fff;">Golden Path</span>
+            </div>
+            <div style="flex:1;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-top:none;padding:18px 16px;display:flex;flex-direction:column;gap:14px;">
+              <div style="display:flex;gap:8px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Self-service</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Defaults seguros</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Equipos autónomos</span></div>
+              <div style="display:flex;gap:8px;"><span style="color:#22c55e;flex-shrink:0;">•</span><span style="font-size:17px;color:#ccc;">Invitación, no mandato</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="story-quote">"Nadie había escrito qué significaba 'listo para producción'"</div>
+      </div>
+      <aside class="notes">Historia del equipo debuggeando sin saber qué versión corre en cada ambiente. IaC → Golden Path. "Nadie había escrito qué significaba 'listo para producción'"</aside>
+    </section>
+```
+
+- [ ] **Step 2: Verify slide 6**
+
+Expected: 3 columns appear left→center→right at 1s intervals, then pause. Red / Orange / Green color coding.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slide 6 acto 2 three-column infra"
+```
+
+---
+
+### Task 6: Slide 7 — Acto 3 (Gate vs Guardrail)
+
+Design reference: gate-guardrail-v9.html (approved). Px values scaled ×2 for 1280×720.
+
+**Files:**
+- Modify: `dist/index.html`
+
+- [ ] **Step 1: Add Slide 7**
+
+```html
+    <!-- SLIDE 7: ACTO 3 — GATE VS GUARDRAIL -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div style="position:absolute;top:4px;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.07),transparent);"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 3 ·</span> El problema de la escala</div>
+        <div style="flex:1;display:flex;align-items:center;padding:0 48px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;width:100%;">
+            <div style="padding:8px 16px;">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+                <span style="color:#ef4444;font-size:40px;font-weight:900;line-height:1;">✗</span>
+                <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#ef4444;">Gate</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:18px;">
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Para. Pide permiso. Espera.</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Equipos bloqueados días</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Tu DM = cola de tickets</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Plataforma = cuello de botella</span></div>
+              </div>
+            </div>
+            <div style="padding:8px 16px;">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+                <span style="color:#22c55e;font-size:40px;font-weight:900;line-height:1;">✓</span>
+                <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#22c55e;">Guardrail</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:18px;">
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Avanza — estos son tus límites</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Self-service con defaults seguros</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Policy-as-code en deploy time</span></div>
+                <div class="fragment" data-autoslide="0" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Plataforma como producto</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="story-quote">"Completamente manual. Completamente evitable."</div>
+      </div>
+      <aside class="notes">Historia: secreto llegó al repo → remediación manual → scanner automático. "Completamente manual. Completamente evitable." Gate = pide permiso. Guardrail = avanza dentro de límites.</aside>
+    </section>
+```
+
+- [ ] **Step 2: Verify slide 7**
+
+Expected: ✗ Gate left, ✓ Guardrail right, vertical center divider; headers visible immediately; Gate items appear (4), then Guardrail items (4, last pauses); quote pinned bottom; two-column block vertically centered.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slide 7 acto 3 gate vs guardrail"
+```
+
+---
+
+### Task 7: Slide 8 — Acto 4 (Retroalimentación)
+
+**Files:**
+- Modify: `dist/index.html`
+
+- [ ] **Step 1: Add Slide 8**
+
+```html
+    <!-- SLIDE 8: ACTO 4 -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 4 ·</span> El ciclo de retroalimentación</div>
+        <div style="margin:10px 48px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:4px solid #E8560A;padding:14px 18px;flex-shrink:0;">
+          <p style="font-size:17px;color:#888;font-style:italic;">"Una plataforma sin visibilidad no es una plataforma. Es una caja negra con buena documentación."</p>
+        </div>
+        <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:14px 48px 0;">
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:20px 16px;">
+            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Visibilidad</p>
+            <p style="font-size:15px;color:#999;text-align:center;line-height:1.5;margin-bottom:14px;">Métricas para los equipos que dependen de ti, no solo para ti.</p>
+            <div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;">
+              <div style="font-size:13px;color:#555;text-align:center;">Deployment Frequency</div>
+              <div style="font-size:13px;color:#555;text-align:center;">Lead Time</div>
+              <div style="font-size:13px;color:#555;text-align:center;">Change Failure Rate</div>
+              <div style="font-size:13px;color:#555;text-align:center;">MTTR</div>
+            </div>
+          </div>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:20px 16px;">
+            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Runbooks como código</p>
+            <p style="font-size:15px;color:#999;text-align:center;line-height:1.5;">El conocimiento de las personas convertido en remediación automatizada.</p>
+          </div>
+          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:20px 16px;">
+            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Cerrar el ciclo</p>
+            <p style="font-size:15px;color:#999;text-align:center;line-height:1.5;">Incidente → corrección en la plataforma → nunca más.</p>
+          </div>
+        </div>
+        <div class="story-quote">"Veinte minutos en el servicio equivocado."</div>
+      </div>
+      <aside class="notes">Historia: logs dispersos, Kibana. "Veinte minutos en el servicio equivocado." DORA: 4 métricas. No medir es operar a ciegas.</aside>
+    </section>
+```
+
+- [ ] **Step 2: Verify slide 8**
+
+Expected: quote banner with orange left border, 3 pillar cards auto-appear, first card shows DORA sub-list.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slide 8 acto 4 retroalimentacion"
+```
+
+---
+
+### Task 8: Slide 9 — Acto 5 (Tres cosas)
+
+**Files:**
+- Modify: `dist/index.html`
+
+- [ ] **Step 1: Add Slide 9**
+
+```html
+    <!-- SLIDE 9: ACTO 5 -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 5 ·</span> Tres cosas</div>
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:0 48px;">
+          <div class="fragment" style="display:flex;align-items:stretch;">
+            <div style="width:80px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;font-weight:900;color:#fff;">1</span></div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-left:none;padding:16px 22px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:900;color:#e8e8e8;margin-bottom:6px;">Empieza por la experiencia del desarrollador</p>
+              <p style="font-size:15px;color:#999;line-height:1.4;">Si tarda más de 1 hora en correr la app, tu plataforma tiene un bug. Mídelo.</p>
+            </div>
+          </div>
+          <div class="fragment" style="display:flex;align-items:stretch;">
+            <div style="width:80px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;font-weight:900;color:#fff;">2</span></div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-left:none;padding:16px 22px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:900;color:#e8e8e8;margin-bottom:6px;">La adopción es una feature</p>
+              <p style="font-size:15px;color:#999;line-height:1.4;">No optimices para tu equipo — optimiza para la velocidad de los equipos de producto.</p>
+            </div>
+          </div>
+          <div class="fragment" data-autoslide="0" style="display:flex;align-items:stretch;">
+            <div style="width:80px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;font-weight:900;color:#fff;">3</span></div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-left:none;padding:16px 22px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:900;color:#e8e8e8;margin-bottom:6px;">Tu plataforma nunca está terminada</p>
+              <p style="font-size:15px;color:#999;line-height:1.4;">Tiene usuarios. Los usuarios tienen problemas. Trátala como un producto. Elige siempre el guardrail.</p>
+            </div>
+          </div>
+        </div>
+        <div class="story-quote"></div>
+      </div>
+      <aside class="notes">Lección 1: La precipitación es el anti-patrón. Puse código en prod que no entendía. Lección 2: La plataforma que nadie usa no sirve. Lección 3: Producto con usuarios reales.</aside>
+    </section>
+```
+
+- [ ] **Step 2: Verify slide 9**
+
+Expected: 3 lesson rows auto-appear at 1s, then pause. Orange number blocks left, lesson title + subtext right.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slide 9 acto 5 tres cosas"
+```
+
+---
+
+### Task 9: Slide 10 — Plan de acción (4×4 checklist)
+
+**Files:**
+- Modify: `dist/index.html`
+
+- [ ] **Step 1: Add Slide 10**
+
+```html
+    <!-- SLIDE 10: PLAN DE ACCIÓN -->
+    <section data-autoslide="1000">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="slide-heading" style="padding-top:12px;">Tu plan de acción</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;padding:12px 48px 0;">
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Entornos</span></div>
+            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:13px;color:#999;">☐ Agrega .tool-versions a cada repositorio</div>
+              <div style="font-size:13px;color:#999;">☐ Estandariza el gestor de versiones</div>
+              <div style="font-size:13px;color:#999;">☐ Mide el tiempo de onboarding ahora</div>
+              <div style="font-size:13px;color:#999;">☐ Automatiza el setup con un solo comando</div>
+            </div>
+          </div>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Infraestructura</span></div>
+            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:13px;color:#999;">☐ Audita cómo despliega cada equipo</div>
+              <div style="font-size:13px;color:#999;">☐ Crea un módulo de IaC compartido</div>
+              <div style="font-size:13px;color:#999;">☐ Define qué es un deploy correcto</div>
+              <div style="font-size:13px;color:#999;">☐ Asigna un dueño a cada servicio en un catálogo</div>
+            </div>
+          </div>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Escala</span></div>
+            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:13px;color:#999;">☐ Haz una lista de lo que los equipos te piden</div>
+              <div style="font-size:13px;color:#999;">☐ Reemplaza los gates por guardrails</div>
+              <div style="font-size:13px;color:#999;">☐ Mide el NPS interno cada trimestre</div>
+              <div style="font-size:13px;color:#999;">☐ Documenta tu golden path de principio a fin</div>
+            </div>
+          </div>
+          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Visibilidad</span></div>
+            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:13px;color:#999;">☐ Calcula tus 4 métricas DORA</div>
+              <div style="font-size:13px;color:#999;">☐ Expón métricas a equipos dependientes</div>
+              <div style="font-size:13px;color:#999;">☐ Tras cada incidente: ¿qué lo haría imposible?</div>
+              <div style="font-size:13px;color:#999;">☐ Define SLOs y compártelos</div>
+            </div>
+          </div>
+        </div>
+        <div class="story-quote" style="padding-bottom:10px;"></div>
+      </div>
+      <aside class="notes">Mostrar el checklist. "Esto es lo que yo haría en la próxima semana." Mencionar el flyer.</aside>
+    </section>
+```
+
+- [ ] **Step 2: Verify slide 10**
+
+Expected: 4 checklist cards in 2×2 grid appear one by one at 1s, then pause.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slide 10 plan de accion checklist"
+```
+
+---
+
+### Task 10: Slide 11 (Cierre) + end-to-end review
+
+**Files:**
+- Modify: `dist/index.html`
+
+- [ ] **Step 1: Add Slide 11**
+
+```html
+    <!-- SLIDE 11: CIERRE -->
+    <section style="background:radial-gradient(ellipse at 30% 50%,rgba(124,58,237,0.15) 0%,transparent 55%),radial-gradient(ellipse at 70% 50%,rgba(232,86,10,0.07) 0%,transparent 55%),#0a080f;">
+      <div class="top-bar"></div>
+      <div style="position:absolute;top:4px;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);"></div>
+      <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;align-items:center;gap:28px;padding-left:56px;padding-right:64px;">
+        <p style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1.25;text-align:center;max-width:900px;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
+        <p style="font-size:20px;color:#555;font-style:italic;text-align:center;">Espacio abierto para debate y lo que quieran traer a la mesa.</p>
+        <p style="font-size:16px;color:#444;text-align:center;"><strong style="color:#666;">Jonathan Ramírez</strong> · N-iX</p>
+      </div>
+      <aside class="notes">Cierre. Repetir el hilo conductor. Abrir para Q&A. Preguntas preparadas: métricas DORA, buy-in de liderazgo, por dónde empezar.</aside>
+    </section>
+```
+
+- [ ] **Step 2: End-to-end review**
+
+Open `dist/index.html`, press `F11` for fullscreen, navigate all 11 slides:
+
+| Slide | Check |
+|-------|-------|
+| 1 | Orange left stripe, large title, subtitle, speaker name |
+| 2 | Centered quote card, orange left border |
+| 3 | 4 cards appear 1s each, quote at bottom |
+| 4 | 5 rows appear 1s each, quote at bottom |
+| 5 | Before items (4) then After items (5), quote at bottom |
+| 6 | 3 columns left→right, quote at bottom |
+| 7 | Gate items (4) then Guardrail items (4), center divider, quote at bottom |
+| 8 | Quote banner, 3 pillars, DORA sub-list in card 1 |
+| 9 | 3 lesson rows appear, orange number blocks |
+| 10 | 4 checklist cards in 2×2 grid |
+| 11 | Orange large quote, mirrors portada style |
+
+Press `S` to open notes window — verify each slide has notes.
+
+- [ ] **Step 3: Fix any overflow**
+
+If any slide has text overflowing its container, reduce the font-size on that slide by 2–3px. Check with DevTools `F12` → Elements → hover over `.slide-body` to see computed height vs content height.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add dist/index.html
+git commit -m "feat: slide 11 cierre — complete 11-slide reveal.js deck"
+```
+
+---
+
+**Self-review:**
+
+1. **Spec coverage:** All 11 slides ✓, dark theme ✓, ambient purple gradient ✓, top bar ✓, horizontal slide transition ✓, 1s fragment auto-advance ✓, `data-autoslide="0"` on last fragment ✓, speaker notes ✓, vendor Reveal.js ✓, Gate vs Guardrail matches v9 ✓, 4×4 checklist ✓.
+
+2. **Placeholder scan:** No TBD or TODO. All steps have complete HTML.
+
+3. **Type consistency:** `.top-bar`, `.act-label`, `.slide-body`, `.story-quote`, `.fragment`, `.dim` used consistently across all tasks.
