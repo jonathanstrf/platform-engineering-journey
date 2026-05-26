@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../vendor/reveal.js/dist/reset.css">
   <link rel="stylesheet" href="../vendor/reveal.js/dist/reveal.css">
   <link rel="stylesheet" href="../vendor/reveal.js/dist/theme/black.css">
+  <link rel="stylesheet" href="../vendor/reveal.js/dist/plugin/highlight/monokai.css">
   <style>
     body { background: #0a080f; }
     .reveal { font-family: Arial, sans-serif; }
@@ -63,7 +64,7 @@
 
     <!-- SLIDE 1: PORTADA -->
     <section style="background:linear-gradient(135deg,rgba(124,58,237,0.07) 0%,#0a080f 60%),#0a080f;">
-      <div class="top-bar"></div>
+      <div class="top-bar" data-id="top-bar"></div>
       <div style="position:absolute;top:4px;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;padding:4px 64px 0 56px;">
         <div style="font-size:14px;color:#E8560A;font-weight:700;letter-spacing:1px;margin-bottom:28px;">N-iX</div>
@@ -78,7 +79,7 @@
 
     <!-- SLIDE 2: EL HILO CONDUCTOR -->
     <section>
-      <div class="top-bar"></div>
+      <div class="top-bar" data-id="top-bar"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;">
         <div style="font-size:17px;color:#E8560A;font-weight:700;letter-spacing:1px;padding:24px 64px 0;">El hilo conductor</div>
         <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px 80px;">
@@ -93,7 +94,7 @@
 
     <!-- SLIDE 3: LOS 4 PROBLEMAS -->
     <section data-autoslide="1000">
-      <div class="top-bar"></div>
+      <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:14px;">Los mismos 4 problemas, siempre</div>
         <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:16px 48px 0;">
@@ -130,14 +131,14 @@
             <img src="../assets/icon_eye.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
         </div>
-        <div class="story-quote">"No son problemas de personas. Son problemas de plataforma."</div>
+        <div class="story-quote" data-id="story-quote">"No son problemas de personas. Son problemas de plataforma."</div>
       </div>
       <aside class="notes">Presentar los 4 problemas. ¿Quién ha vivido esto? Pausa. "No son problemas de personas. Son problemas de plataforma."</aside>
     </section>
 
     <!-- SLIDE 4: 5 ACTOS -->
-    <section data-autoslide="1000">
-      <div class="top-bar"></div>
+    <section data-autoslide="1000" data-auto-animate>
+      <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:14px;">Un viaje de 5 actos</div>
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:0 48px;">
@@ -162,17 +163,17 @@
             <div style="flex:1;height:72px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">Tres cosas</span></div>
           </div>
         </div>
-        <div class="story-quote">"Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie."</div>
+        <div class="story-quote" data-id="story-quote">"Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie."</div>
       </div>
       <aside class="notes">Roadmap de la charla. Cada acto = un problema real que resolvimos.</aside>
     </section>
 
     <!-- SLIDE 5: ACTO 1 -->
-    <section data-autoslide="1000">
-      <div class="top-bar"></div>
+    <section data-autoslide="1000" data-auto-animate>
+      <div class="top-bar" data-id="top-bar"></div>
       <div style="position:absolute;top:4px;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.07),transparent);"></div>
       <div class="slide-body">
-        <div class="act-label"><span class="dim">Acto 1 ·</span> El problema del entorno local</div>
+        <div class="act-label" data-id="act-label"><span class="dim">Acto 1 ·</span> El problema del entorno local</div>
         <div style="flex:1;display:flex;align-items:center;padding:0 48px;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;width:100%;">
             <div style="padding:8px 16px;">
@@ -202,16 +203,16 @@
             </div>
           </div>
         </div>
-        <div class="story-quote">"Horas para descubrir que el problema era un número."</div>
+        <div class="story-quote" data-id="story-quote">"Horas para descubrir que el problema era un número."</div>
       </div>
       <aside class="notes">Historia: versión equivocada de Node. "Horas para descubrir que el problema era un número." Solución: .tool-versions + asdf/mise.</aside>
     </section>
 
     <!-- SLIDE 6: ACTO 2 -->
-    <section data-autoslide="1000">
-      <div class="top-bar"></div>
+    <section data-autoslide="1000" data-auto-animate>
+      <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
-        <div class="act-label"><span class="dim">Acto 2 ·</span> El problema de la infraestructura</div>
+        <div class="act-label" data-id="act-label"><span class="dim">Acto 2 ·</span> El problema de la infraestructura</div>
         <div style="flex:1;display:flex;align-items:center;padding:0 48px;">
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;width:100%;">
             <div class="fragment" style="padding:8px 24px 8px 0;border-right:1px solid rgba(255,255,255,0.07);">
@@ -237,6 +238,11 @@
                 <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Definición de "correcto"</span></div>
                 <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Drift visible</span></div>
               </div>
+              <pre style="margin-top:14px;border-radius:4px;overflow:hidden;font-size:11px;"><code class="language-hcl">module "svc" {
+  source  = "org/tf-modules//lambda"
+  version = "2.1.0"
+  runtime = "nodejs18.x"
+}</code></pre>
             </div>
             <div class="fragment" data-autoslide="0" style="padding:8px 0 8px 24px;">
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
@@ -252,17 +258,17 @@
             </div>
           </div>
         </div>
-        <div class="story-quote">"Nadie había escrito qué significaba 'listo para producción'"</div>
+        <div class="story-quote" data-id="story-quote">"Nadie había escrito qué significaba 'listo para producción'"</div>
       </div>
       <aside class="notes">Historia del equipo debuggeando sin saber qué versión corre en cada ambiente. IaC → Golden Path. "Nadie había escrito qué significaba 'listo para producción'"</aside>
     </section>
 
     <!-- SLIDE 7: ACTO 3 — GATE VS GUARDRAIL -->
-    <section data-autoslide="1000">
-      <div class="top-bar"></div>
+    <section data-autoslide="1000" data-auto-animate>
+      <div class="top-bar" data-id="top-bar"></div>
       <div style="position:absolute;top:4px;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.07),transparent);"></div>
       <div class="slide-body">
-        <div class="act-label"><span class="dim">Acto 3 ·</span> El problema de la escala</div>
+        <div class="act-label" data-id="act-label"><span class="dim">Acto 3 ·</span> El problema de la escala</div>
         <div style="flex:1;display:flex;align-items:center;padding:0 48px;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;width:100%;">
             <div style="padding:8px 16px;">
@@ -291,16 +297,16 @@
             </div>
           </div>
         </div>
-        <div class="story-quote">"Completamente manual. Completamente evitable."</div>
+        <div class="story-quote" data-id="story-quote">"Completamente manual. Completamente evitable."</div>
       </div>
       <aside class="notes">Historia: secreto llegó al repo → remediación manual → scanner automático. "Completamente manual. Completamente evitable." Gate = pide permiso. Guardrail = avanza dentro de límites.</aside>
     </section>
 
     <!-- SLIDE 8: ACTO 4 -->
-    <section data-autoslide="1000">
-      <div class="top-bar"></div>
+    <section data-autoslide="1000" data-auto-animate>
+      <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
-        <div class="act-label"><span class="dim">Acto 4 ·</span> El ciclo de retroalimentación</div>
+        <div class="act-label" data-id="act-label"><span class="dim">Acto 4 ·</span> El ciclo de retroalimentación</div>
         <div style="margin:10px 48px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:4px solid #E8560A;padding:12px 18px;flex-shrink:0;">
           <p style="font-size:17px;color:#888;font-style:italic;">"Una plataforma sin visibilidad no es una plataforma. Es una caja negra con buena documentación."</p>
         </div>
@@ -317,22 +323,23 @@
           <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:14px 14px;">
             <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Runbooks como código</p>
             <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;margin-top:6px;">El conocimiento de las personas convertido en remediación automatizada.</p>
+            <pre style="margin-top:10px;border-radius:4px;overflow:hidden;font-size:12px;"><code class="language-bash">./runbooks/fix-connection-pool.sh</code></pre>
           </div>
           <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:14px 14px;">
             <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Cerrar el ciclo</p>
             <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;margin-top:6px;">Incidente → corrección en la plataforma → nunca más.</p>
           </div>
         </div>
-        <div class="story-quote">"Lo aprendimos a las malas."</div>
+        <div class="story-quote" data-id="story-quote">"Lo aprendimos a las malas."</div>
       </div>
       <aside class="notes">Historia: logs dispersos, Kibana. "Lo aprendimos a las malas." DORA: 4 métricas. Runbooks como código. Cerrar el ciclo.</aside>
     </section>
 
     <!-- SLIDE 9: ACTO 5 -->
-    <section data-autoslide="1000">
-      <div class="top-bar"></div>
+    <section data-autoslide="1000" data-auto-animate>
+      <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
-        <div class="act-label"><span class="dim">Acto 5 ·</span> Tres cosas</div>
+        <div class="act-label" data-id="act-label"><span class="dim">Acto 5 ·</span> Tres cosas</div>
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:0 48px;">
           <div class="fragment" style="display:flex;align-items:stretch;">
             <div style="width:80px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;font-weight:900;color:#fff;">1</span></div>
@@ -362,7 +369,7 @@
 
     <!-- SLIDE 10: PLAN DE ACCIÓN -->
     <section data-autoslide="1000">
-      <div class="top-bar"></div>
+      <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:12px;">Tu plan de acción</div>
         <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:12px;padding:12px 48px 0;">
@@ -413,7 +420,7 @@
 
     <!-- SLIDE 11: CIERRE -->
     <section style="background:radial-gradient(ellipse at 30% 50%,rgba(124,58,237,0.15) 0%,transparent 55%),radial-gradient(ellipse at 70% 50%,rgba(232,86,10,0.07) 0%,transparent 55%),#0a080f;">
-      <div class="top-bar"></div>
+      <div class="top-bar" data-id="top-bar"></div>
       <div style="position:absolute;top:4px;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;align-items:center;gap:28px;padding-left:56px;padding-right:64px;">
         <p style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1.25;text-align:center;max-width:900px;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
@@ -427,12 +434,15 @@
 </div>
 <script src="../vendor/reveal.js/dist/reveal.js"></script>
 <script src="../vendor/reveal.js/dist/plugin/notes.js"></script>
+<script src="../vendor/reveal.js/dist/plugin/highlight.js"></script>
+<script src="../vendor/reveal.js/dist/plugin/zoom.js"></script>
 <script>
   Reveal.initialize({
     hash: true, width: 1280, height: 720, margin: 0,
     transition: 'slide', transitionSpeed: 'default',
     autoSlide: 0, loop: false, controls: true, progress: true,
-    plugins: [RevealNotes]
+    highlight: { highlightOnLoad: true },
+    plugins: [RevealNotes, RevealHighlight, RevealZoom]
   });
 </script>
 </body>
