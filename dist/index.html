@@ -49,6 +49,12 @@
       display:flex; flex-direction:column;
       height:100%; padding-top:4px;
     }
+    .tech {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: rgba(255,255,255,0.07);
+      padding: 1px 6px; border-radius: 3px;
+      font-size: 0.88em; color: #ccc;
+    }
   </style>
 </head>
 <body>
@@ -91,29 +97,29 @@
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:14px;">Los mismos 4 problemas, siempre</div>
         <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:16px 48px 0;">
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:28px 16px;">
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:68px;font-weight:900;color:#E8560A;line-height:1;">1</span>
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:12px 0 8px;text-align:center;">Entorno local</span>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:24px 16px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">1</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Entorno local</span>
             <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Días configurando.<br>Funciona en mi máquina.</p>
-            <div style="font-size:46px;margin-top:auto;padding-top:16px;">💻</div>
+            <img src="../assets/icon_laptop.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:28px 16px;">
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:68px;font-weight:900;color:#E8560A;line-height:1;">2</span>
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:12px 0 8px;text-align:center;">Infraestructura</span>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:24px 16px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">2</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Infraestructura</span>
             <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Cada equipo despliega diferente. Deriva total.</p>
-            <div style="font-size:46px;margin-top:auto;padding-top:16px;">🖥️</div>
+            <img src="../assets/icon_server.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:28px 16px;">
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:68px;font-weight:900;color:#E8560A;line-height:1;">3</span>
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:12px 0 8px;text-align:center;">Escala</span>
+          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:24px 16px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">3</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Escala</span>
             <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">El equipo de plataforma se vuelve el cuello de botella.</p>
-            <div style="font-size:46px;margin-top:auto;padding-top:16px;">👥</div>
+            <img src="../assets/icon_team.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
-          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;padding:28px 16px;">
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:68px;font-weight:900;color:#E8560A;line-height:1;">4</span>
-            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#e8e8e8;margin:12px 0 8px;text-align:center;">Visibilidad</span>
+          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:24px 16px;">
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">4</span>
+            <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;margin:10px 0 8px;text-align:center;">Visibilidad</span>
             <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Algo falla.<br>Nadie sabe dónde mirar.</p>
-            <div style="font-size:46px;margin-top:auto;padding-top:16px;">👁️</div>
+            <img src="../assets/icon_eye.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
         </div>
         <div class="story-quote">"No son problemas de personas. Son problemas de plataforma."</div>
@@ -167,10 +173,10 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#ef4444;">Antes</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Node 24 en local, Node 18 en el servidor</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Sin .tool-versions en el repo</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Horas de debugging</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">"En mi máquina funciona"</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">Node 24</span> en local, <span class="tech">Node 18</span> en el servidor</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Sin <span class="tech">.tool-versions</span> en el repo</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Horas de debugging</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">"En mi máquina funciona"</span></div>
               </div>
             </div>
             <div style="padding:8px 16px;">
@@ -179,11 +185,11 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#22c55e;">Después</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">.tool-versions en el repo</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">asdf / mise para todos</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Local = CI = Staging</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Onboarding en minutos</span></div>
-                <div class="fragment" data-autoslide="0" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Resuelto una vez, para todos</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">.tool-versions</span> en el repo</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">asdf</span> / <span class="tech">mise</span> para todos</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">Local = CI = Staging</span></span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Onboarding en minutos</span></div>
+                <div class="fragment" data-autoslide="0" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Resuelto una vez, para todos</span></div>
               </div>
             </div>
           </div>
@@ -206,10 +212,10 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#ef4444;">Sin estándar</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:16px;">
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Bash script</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">GitHub Action a medias</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Deploy manual</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">"¿Funciona en prod?"</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Bash script</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">GitHub Action a medias</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Deploy manual</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">"¿Funciona en prod?"</span></div>
               </div>
             </div>
             <div class="fragment" style="padding:8px 24px;border-right:1px solid rgba(255,255,255,0.07);">
@@ -218,10 +224,10 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#E8560A;">IaC como contrato</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:16px;">
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Módulos versionados</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Revisión compartida</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Definición de "correcto"</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Drift visible</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Módulos versionados</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Revisión compartida</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Definición de "correcto"</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Drift visible</span></div>
               </div>
             </div>
             <div class="fragment" data-autoslide="0" style="padding:8px 0 8px 24px;">
@@ -230,10 +236,10 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#22c55e;">Golden Path</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:16px;">
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Self-service</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Defaults seguros</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Equipos autónomos</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;">•</span><span style="font-size:19px;color:#999;">Invitación, no mandato</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Self-service</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Defaults seguros</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Equipos autónomos</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:16px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Invitación, no mandato</span></div>
               </div>
             </div>
           </div>
@@ -257,10 +263,10 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#ef4444;">Gate</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Para. Pide permiso. Espera.</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Equipos bloqueados días</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Tu DM = cola de tickets</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Plataforma = cuello de botella</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Para. Pide permiso. Espera.</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Equipos bloqueados días</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Tu DM = cola de tickets</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Plataforma = cuello de botella</span></div>
               </div>
             </div>
             <div style="padding:8px 16px;">
@@ -269,10 +275,10 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#22c55e;">Guardrail</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Avanza — estos son tus límites</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Self-service con defaults seguros</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Policy-as-code en deploy time</span></div>
-                <div class="fragment" data-autoslide="0" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;">•</span><span style="font-size:22px;color:#999;">Plataforma como producto</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Avanza — estos son tus límites</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Self-service con defaults seguros</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">policy-as-code</span> en deploy time</span></div>
+                <div class="fragment" data-autoslide="0" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:18px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Plataforma como producto</span></div>
               </div>
             </div>
           </div>
