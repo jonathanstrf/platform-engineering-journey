@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Cero a Producción — Jonathan Ramírez</title>
+  <link rel="stylesheet" href="../vendor/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../vendor/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../vendor/reveal.js/dist/theme/black.css">
+  <style>
+    body { background: #0a080f; }
+    .reveal { font-family: Arial, sans-serif; }
+    .reveal .slides section {
+      height: 100%; padding: 0; top: 0 !important;
+      overflow: hidden; text-align: left;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(124,58,237,0.09) 0%, transparent 60%),
+        #0a080f;
+    }
+    .reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
+      text-transform:none; margin:0; font-weight:normal;
+      color:inherit; font-size:inherit; line-height:1.2; letter-spacing:normal;
+    }
+    .reveal p { margin:0; }
+    .reveal ul,.reveal ol { padding:0; margin:0; list-style:none; }
+    .reveal li { margin:0; }
+    .reveal .fragment { opacity:0; transition:opacity 0.4s ease; }
+    .reveal .fragment.visible { opacity:1; }
+
+    .top-bar {
+      position:absolute; top:0; left:0; right:0; height:4px;
+      background:linear-gradient(90deg,#E8560A,#7C3AED); z-index:10; flex-shrink:0;
+    }
+    .act-label {
+      font-size:17px; color:#E8560A; letter-spacing:3px;
+      text-transform:uppercase; padding:22px 48px 0; flex-shrink:0;
+    }
+    .act-label .dim { color:#555; }
+    .slide-heading {
+      font-size:38px; font-family:'Arial Black',Arial,sans-serif;
+      font-weight:900; color:#e8e8e8; padding:10px 48px 0; flex-shrink:0;
+    }
+    .story-quote {
+      font-size:17px; color:#E8560A; font-style:italic;
+      text-align:center; padding:0 48px 18px; flex-shrink:0;
+    }
+    .slide-body {
+      display:flex; flex-direction:column;
+      height:100%; padding-top:4px;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- SLIDE 1: PORTADA -->
+    <section style="background:linear-gradient(135deg,rgba(124,58,237,0.07) 0%,#0a080f 60%),#0a080f;">
+      <div class="top-bar"></div>
+      <div style="position:absolute;top:4px;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);"></div>
+      <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;padding:4px 64px 0 56px;">
+        <div style="font-size:14px;color:#E8560A;font-weight:700;letter-spacing:1px;margin-bottom:28px;">N-iX</div>
+        <h1 style="font-family:'Arial Black',Arial,sans-serif;font-size:88px;font-weight:900;color:#e8e8e8;line-height:1;margin-bottom:20px;">De Cero a<br>Producción</h1>
+        <div style="width:100%;height:2px;background:rgba(255,255,255,0.12);margin-bottom:18px;"></div>
+        <p style="font-size:28px;color:#E8560A;font-style:italic;margin-bottom:52px;">Un viaje de Platform Engineering a través de equipos reales</p>
+        <p style="font-size:22px;color:#e8e8e8;margin-bottom:6px;"><strong>Jonathan Ramírez</strong> <span style="color:#555;">· N-iX</span></p>
+        <p style="font-size:16px;color:#E8560A;">Track de Platform Engineering · DevOpsDays Medellín 2026</p>
+      </div>
+      <aside class="notes">Apertura — historia persona inquieta. Avanzar silenciosamente al terminar. No te presentes todavía.</aside>
+    </section>
+
+  </div>
+</div>
+<script src="../vendor/reveal.js/dist/reveal.js"></script>
+<script src="../vendor/reveal.js/dist/plugin/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true, width: 1280, height: 720, margin: 0,
+    transition: 'slide', transitionSpeed: 'default',
+    autoSlide: 0, loop: false, controls: true, progress: true,
+    plugins: [RevealNotes]
+  });
+</script>
+</body>
+</html>
