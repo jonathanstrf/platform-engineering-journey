@@ -25,7 +25,7 @@ const iconLaptop  = "image/png;base64," + fs.readFileSync(path.join(ASSETS_DIR, 
 const iconServer  = "image/png;base64," + fs.readFileSync(path.join(ASSETS_DIR, 'icon_server.png')).toString("base64");
 const iconTeam    = "image/png;base64," + fs.readFileSync(path.join(ASSETS_DIR, 'icon_team.png')).toString("base64");
 const iconEye     = "image/png;base64," + fs.readFileSync(path.join(ASSETS_DIR, 'icon_eye.png')).toString("base64");
-const qrPA        = "image/jpeg;base64," + fs.readFileSync(path.join(ASSETS_DIR, 'QR_PA.jpeg')).toString("base64");
+const qrFlyer     = "image/jpeg;base64," + fs.readFileSync(path.join(ASSETS_DIR, 'QR_FLYER.jpeg')).toString("base64");
 
 async function main() {
   fs.mkdirSync(DIST_DIR, { recursive: true });
