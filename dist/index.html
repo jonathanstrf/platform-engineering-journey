@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="../vendor/reveal.js/dist/theme/black.css">
   <link rel="stylesheet" href="../vendor/reveal.js/dist/plugin/highlight/monokai.css">
   <style>
-    body { background: #dddbe6; }
+    html, body { overflow: hidden; max-width: 100%; }
+  body { background: #dddbe6; }
     .reveal { font-family: Arial, sans-serif; }
     .reveal .slides section {
       height: 100%; padding: 0; top: 0 !important;
@@ -89,9 +90,29 @@
     .reveal .controls button { color: #E8560A !important; }
     /* Progress bar — orange to purple gradient */
     .reveal .progress span { background: linear-gradient(90deg, #E8560A, #7C3AED) !important; }
-  </style>
+    #rotate-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: #0a080f;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  #rotate-overlay svg { animation: spin 2s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @media (max-width: 768px) and (orientation: portrait) {
+    #rotate-overlay { display: flex; }
+  }
+</style>
 </head>
 <body>
+<div id="rotate-overlay">
+  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8560A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22h6"/>
+  </svg>
+  <p style="font-family:Arial,sans-serif;font-size:18px;color:#e8e8e8;text-align:center;margin:0;">Rota tu pantalla para ver la presentación</p>
+</div>
 <div class="reveal">
   <div class="slides">
 
@@ -748,7 +769,8 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
 <script src="../vendor/reveal.js/dist/plugin/zoom.js"></script>
 <script>
   Reveal.initialize({
-    hash: true, width: 1280, height: 720, margin: 0,
+    hash: true, width: 1280, height: 720, margin: 0.04,
+    minScale: 0.1, maxScale: 2.0,
     transition: 'slide', transitionSpeed: 'default',
     autoSlide: 0, loop: false, controls: true, progress: true,
     highlight: { highlightOnLoad: true },
