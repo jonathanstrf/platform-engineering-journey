@@ -9,15 +9,12 @@
   <link rel="stylesheet" href="../vendor/reveal.js/dist/theme/black.css">
   <link rel="stylesheet" href="../vendor/reveal.js/dist/plugin/highlight/monokai.css">
   <style>
-    body { background: #0a080f; }
+    body { background: #dddbe6; }
     .reveal { font-family: Arial, sans-serif; }
     .reveal .slides section {
       height: 100%; padding: 0; top: 0 !important;
       overflow: hidden; text-align: left;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.09) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 50%, rgba(124,58,237,0.09) 0%, transparent 60%),
-        #0a080f;
+      background: #FFFFFF;
     }
     .reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
       text-transform:none; margin:0; font-weight:normal;
@@ -26,7 +23,7 @@
     .reveal p { margin:0; }
     .reveal ul,.reveal ol { padding:0; margin:0; list-style:none; }
     .reveal li { margin:0; }
-    .reveal .fragment { opacity:0; transition:opacity 0.4s ease; }
+    .reveal .fragment { opacity:0; transition:opacity 0.5s ease, transform 0.5s ease; }
     .reveal .fragment.visible { opacity:1; }
 
     .top-bar {
@@ -37,25 +34,61 @@
       font-size:17px; color:#E8560A; letter-spacing:3px;
       text-transform:uppercase; padding:22px 48px 0; flex-shrink:0;
     }
-    .act-label .dim { color:#555; }
+    .act-label .dim { color:#888; }
     .slide-heading {
       font-size:38px; font-family:'Arial Black',Arial,sans-serif;
-      font-weight:900; color:#e8e8e8; padding:10px 48px 0; flex-shrink:0;
+      font-weight:900; color:#2D2D2D; padding:10px 48px 0; flex-shrink:0;
     }
     .story-quote {
       font-size:17px; color:#E8560A; font-style:italic;
-      text-align:center; padding:0 48px 18px; flex-shrink:0;
+      text-align:center; padding:0 48px 30px; flex-shrink:0;
+      position:relative;
     }
+    .story-quote::before {
+      content: '\201C';
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 72px; font-style: normal;
+      color: rgba(232,86,10,0.13);
+      position: absolute; top: -28px; left: 44px;
+      line-height: 1; pointer-events: none;
+    }
+    .story-quote.no-deco::before { display: none; }
+    /* Diagonal corner fragment animations */
+    .reveal .fragment.fade-from-tl { opacity:0; transform:translate(-40px,-40px); }
+    .reveal .fragment.fade-from-tr { opacity:0; transform:translate( 40px,-40px); }
+    .reveal .fragment.fade-from-bl { opacity:0; transform:translate(-40px, 40px); }
+    .reveal .fragment.fade-from-br { opacity:0; transform:translate( 40px, 40px); }
+    .reveal .fragment.fade-from-tl.visible,
+    .reveal .fragment.fade-from-tr.visible,
+    .reveal .fragment.fade-from-bl.visible,
+    .reveal .fragment.fade-from-br.visible { opacity:1; transform:translate(0,0); }
     .slide-body {
       display:flex; flex-direction:column;
       height:100%; padding-top:4px;
     }
     .tech {
       font-family: 'Consolas', 'Courier New', monospace;
-      background: rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.07);
       padding: 1px 6px; border-radius: 3px;
-      font-size: 0.88em; color: #ccc;
+      font-size: 0.88em; color: #333;
     }
+    .reveal pre {
+      background: #272822; border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      font-size: 0.9em; margin: 0; width: 100%;
+      position: relative; overflow: hidden;
+    }
+    .reveal pre code { background: #272822; color: #f8f8f2; padding: 16px 20px; }
+    /* current-only code-step fragments must overlay each other, not stack */
+    .reveal pre code.fragment { position: absolute; top: 0; left: 0; right: 0; }
+    /* past current-only fragments hide again (reveal.css handles this normally) */
+    .reveal .fragment.current-only.visible:not(.current-fragment) { opacity: 0; }
+    .code-slide .slide-body { padding-bottom: 16px; }
+    .code-slide pre { flex: 1; min-height: 0; }
+    /* Navigation arrows — orange accent */
+    .reveal .controls button { color: #E8560A !important; }
+    /* Progress bar — orange to purple gradient */
+    .reveal .progress span { background: linear-gradient(90deg, #E8560A, #7C3AED) !important; }
   </style>
 </head>
 <body>
@@ -65,16 +98,16 @@
     <!-- SLIDE 1: PORTADA -->
     <section style="background:linear-gradient(135deg,rgba(124,58,237,0.07) 0%,#0a080f 60%),#0a080f;">
       <div class="top-bar" data-id="top-bar"></div>
-      <div style="position:absolute;top:4px;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);"></div>
+      <div style="position:absolute;top:0;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);z-index:11;"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;padding:4px 64px 0 56px;">
         <div style="font-size:14px;color:#E8560A;font-weight:700;letter-spacing:1px;margin-bottom:28px;">N-iX</div>
         <h1 style="font-family:'Arial Black',Arial,sans-serif;font-size:88px;font-weight:900;color:#e8e8e8;line-height:1;margin-bottom:20px;">De Cero a<br>Producción</h1>
         <div style="width:100%;height:2px;background:rgba(255,255,255,0.12);margin-bottom:18px;"></div>
         <p style="font-size:28px;color:#E8560A;font-style:italic;margin-bottom:52px;">Un viaje de Platform Engineering a través de equipos reales</p>
-        <p style="font-size:22px;color:#e8e8e8;margin-bottom:6px;"><strong>Jonathan Ramírez</strong> <span style="color:#555;">· N-iX</span></p>
+        <p style="font-size:22px;color:#e8e8e8;margin-bottom:6px;"><strong>Jonathan Ramírez</strong> <span style="color:#aaa;">· N-iX</span></p>
         <p style="font-size:16px;color:#E8560A;">Track de Platform Engineering · DevOpsDays Medellín 2026</p>
       </div>
-      <aside class="notes">Apertura — historia persona inquieta. Avanzar silenciosamente al terminar. No te presentes todavía.</aside>
+      <aside class="notes">Persona inquieta. Repo fósil. npm install → errores. Dos horas. "Y uno sabe que la cosa se puso seria cuando tiene que detener la música." Node 18 vs Node 24. Bajé la versión. Funcionó. "Horas para descubrir que el problema era un número." "Apuesto a que al menos la mitad de ustedes tiene una historia exactamente así." [Pausa. Avanzar — no te presentes todavía.]</aside>
     </section>
 
     <!-- SLIDE 2: EL HILO CONDUCTOR -->
@@ -82,14 +115,14 @@
       <div class="top-bar" data-id="top-bar"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;">
         <div style="font-size:17px;color:#E8560A;font-weight:700;letter-spacing:1px;padding:24px 64px 0;">El hilo conductor</div>
-        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px 80px;">
-          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:4px solid #E8560A;border-radius:4px;padding:48px 56px;">
-            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:42px;font-weight:900;color:#e8e8e8;line-height:1.3;text-align:center;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
-            <p style="font-size:22px;color:#555;text-align:center;margin-top:24px;">Todo lo demás es el camino para llegar ahí.</p>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:32px 80px;">
+          <div style="background:#FDE8DA;border:1px solid #E0E0E0;border-left:4px solid #E8560A;border-radius:4px;padding:48px 56px;">
+            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:42px;font-weight:900;color:#2D2D2D;line-height:1.3;text-align:center;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
           </div>
+          <p class="fragment fade-up" style="font-size:22px;color:#888;font-style:italic;text-align:center;">Todo lo demás es el camino para llegar ahí.</p>
         </div>
       </div>
-      <aside class="notes">[Avanzar en silencio — no hay spoken cue aquí. La frase queda en pantalla mientras te presentas.]</aside>
+      <aside class="notes">[Avanzar en silencio. Deja que la frase llegue antes de hablar. No la leas. → Slide 3 para presentarte.]</aside>
     </section>
 
     <!-- SLIDE 3: LOS 4 PROBLEMAS -->
@@ -97,81 +130,82 @@
       <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:14px;">Los mismos 4 problemas, siempre</div>
-        <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:16px 48px 0;">
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
+        <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:16px 48px 52px;min-height:0;overflow:hidden;">
+          <div class="fragment" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
             <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">1</span>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;">Entorno local</span>
-              <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Días configurando.<br>Funciona en mi máquina.</p>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;text-align:center;">Entorno local</span>
+              <p style="font-size:14px;color:#4A4A4A;text-align:center;line-height:1.5;">Días configurando.<br>Funciona en mi máquina.</p>
             </div>
             <img src="../assets/icon_laptop.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
+          <div class="fragment" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
             <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">2</span>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;">Infraestructura</span>
-              <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Cada equipo despliega diferente. Deriva total.</p>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;text-align:center;">Infraestructura</span>
+              <p style="font-size:14px;color:#4A4A4A;text-align:center;line-height:1.5;">Cada equipo despliega diferente. Deriva total.</p>
             </div>
             <img src="../assets/icon_server.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
+          <div class="fragment" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
             <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">3</span>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;">Escala</span>
-              <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">El equipo de plataforma se vuelve el cuello de botella.</p>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;text-align:center;">Escala</span>
+              <p style="font-size:14px;color:#4A4A4A;text-align:center;line-height:1.5;">El equipo de plataforma se vuelve el cuello de botella.</p>
             </div>
             <img src="../assets/icon_team.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
-          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
+          <div class="fragment" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;">
             <span style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1;">4</span>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;">Visibilidad</span>
-              <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;">Algo falla.<br>Nadie sabe dónde mirar.</p>
+              <span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;text-align:center;">Visibilidad</span>
+              <p style="font-size:14px;color:#4A4A4A;text-align:center;line-height:1.5;">Algo falla.<br>Nadie sabe dónde mirar.</p>
             </div>
             <img src="../assets/icon_eye.png" style="width:80px;height:80px;object-fit:contain;">
           </div>
         </div>
-        <div class="story-quote" data-id="story-quote">"No son problemas de personas. Son problemas de plataforma."</div>
+        <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"No son problemas de personas. Son problemas de plataforma."</div>
       </div>
-      <aside class="notes">Presentar los 4 problemas. ¿Quién ha vivido esto? Pausa. "No son problemas de personas. Son problemas de plataforma."</aside>
+      <aside class="notes">Me llamo Jonathan Ramírez. N-iX. Mismos problemas, distinto stack. "Resolverlos una vez, a nivel de plataforma, en lugar de sufrirlos para siempre." Los 4 problemas — ¿quién ha vivido esto? Pausa. "No son problemas de personas. Son problemas de plataforma."</aside>
     </section>
 
     <!-- SLIDE 4: 5 ACTOS -->
-    <section data-autoslide="1000" data-auto-animate>
+    <section data-autoslide="1000">
       <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:14px;">Un viaje de 5 actos</div>
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:0 48px;">
           <div class="fragment" style="display:flex;align-items:center;">
             <div style="width:72px;height:72px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:26px;font-weight:900;color:#fff;">1</span></div>
-            <div style="flex:1;height:72px;background:rgba(232,86,10,0.15);border:1px solid rgba(232,86,10,0.3);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El problema del entorno local</span></div>
+            <div style="flex:1;height:72px;background:rgba(232,86,10,0.15);border:1px solid rgba(232,86,10,0.3);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">El problema del entorno local</span></div>
           </div>
           <div class="fragment" style="display:flex;align-items:center;">
             <div style="width:72px;height:72px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:26px;font-weight:900;color:#fff;">2</span></div>
-            <div style="flex:1;height:72px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El problema de la infraestructura</span></div>
+            <div style="flex:1;height:72px;background:#F4F4F4;border:1px solid #E0E0E0;display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">El problema de la infraestructura</span></div>
           </div>
           <div class="fragment" style="display:flex;align-items:center;">
             <div style="width:72px;height:72px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:26px;font-weight:900;color:#fff;">3</span></div>
-            <div style="flex:1;height:72px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El problema de la escala</span></div>
+            <div style="flex:1;height:72px;background:#F4F4F4;border:1px solid #E0E0E0;display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">El problema de la escala</span></div>
           </div>
           <div class="fragment" style="display:flex;align-items:center;">
             <div style="width:72px;height:72px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:26px;font-weight:900;color:#fff;">4</span></div>
-            <div style="flex:1;height:72px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">El ciclo de retroalimentación</span></div>
+            <div style="flex:1;height:72px;background:#F4F4F4;border:1px solid #E0E0E0;display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">El ciclo de retroalimentación</span></div>
           </div>
-          <div class="fragment" data-autoslide="0" style="display:flex;align-items:center;">
+          <div class="fragment" style="display:flex;align-items:center;">
             <div style="width:72px;height:72px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:26px;font-weight:900;color:#fff;">5</span></div>
-            <div style="flex:1;height:72px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#e8e8e8;">Tres cosas</span></div>
+            <div style="flex:1;height:72px;background:#F4F4F4;border:1px solid #E0E0E0;display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">Tres cosas</span></div>
           </div>
         </div>
-        <div class="story-quote" data-id="story-quote">"Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie."</div>
+        <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie."</div>
       </div>
-      <aside class="notes">Roadmap de la charla. Cada acto = un problema real que resolvimos.</aside>
+      <aside class="notes">Recorre los 5 actos con la slide. No los expliques — solo los nombras. La audiencia sabe hacia dónde va.</aside>
     </section>
 
     <!-- SLIDE 5: ACTO 1 -->
-    <section data-autoslide="1000" data-auto-animate>
+    <section>
+    <section data-autoslide="1000">
       <div class="top-bar" data-id="top-bar"></div>
-      <div style="position:absolute;top:4px;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.07),transparent);"></div>
+      <div style="position:absolute;top:4px;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.08),transparent);"></div>
       <div class="slide-body">
         <div class="act-label" data-id="act-label"><span class="dim">Acto 1 ·</span> El problema del entorno local</div>
         <div style="flex:1;display:flex;align-items:center;padding:0 48px;">
@@ -182,10 +216,11 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#ef4444;">Antes</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">Node 24</span> en local, <span class="tech">Node 18</span> en el servidor</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Sin <span class="tech">.tool-versions</span> en el repo</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Horas de debugging</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">"En mi máquina funciona"</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;"><span class="tech">Node 24</span> en local, <span class="tech">Node 18</span> en el servidor</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Sin <span class="tech">.tool-versions</span> en el repo</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Horas de debugging</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">"En mi máquina funciona"</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Cada dev lo resuelve por su cuenta</span></div>
               </div>
             </div>
             <div style="padding:8px 16px;">
@@ -194,79 +229,198 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#22c55e;">Después</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">.tool-versions</span> en el repo</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">asdf</span> / <span class="tech">mise</span> para todos</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">Local = CI = Staging</span></span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Onboarding en minutos</span></div>
-                <div class="fragment" data-autoslide="0" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Resuelto una vez, para todos</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;"><span class="tech">.tool-versions</span> en el repo</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;"><span class="tech">asdf</span> / <span class="tech">mise</span> para todos</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;"><span class="tech">Local = CI = Staging</span></span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Onboarding en minutos</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Resuelto una vez, para todos</span></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="story-quote" data-id="story-quote">"Horas para descubrir que el problema era un número."</div>
+        <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Horas para descubrir que el problema era un número."</div>
       </div>
-      <aside class="notes">Historia: versión equivocada de Node. "Horas para descubrir que el problema era un número." Solución: .tool-versions + asdf/mise.</aside>
+      <aside class="notes">"Empecemos por el fondo del stack. No por Kubernetes. Por tu computador." Entropía sin restricciones. No culpar al dev — la plataforma falló 10 veces. .tool-versions + asdf/mise. Cierre apertura: "No fue un problema de Node — fue un problema de plataforma. Nadie lo había escrito." Corrección: 20 min. Estandarización: una tarde. Nunca más. "Los pequeños cambios son los que generan gran impacto." → "Todos sobre el mismo terreno. Y fue ahí cuando me di cuenta — el terreno era diferente para cada equipo." [↓ código]</aside>
+    </section>
+    <section class="code-slide">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 1 ·</span> El problema del entorno local</div>
+        <div class="slide-heading">La solución: un archivo</div>
+        <div style="flex:1;display:flex;flex-direction:column;min-height:0;padding:0 48px 24px;">
+          <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:8px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="color:#ff5f57;font-size:13px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:13px;line-height:1;">⬤</span><span style="color:#28c840;font-size:13px;line-height:1;">⬤</span>
+            <span style="font-family:'Consolas','Courier New',monospace;font-size:13px;color:#aaa;margin-left:8px;">.tool-versions</span>
+          </div>
+          <pre style="font-size:16px;border-radius:0 0 6px 6px;flex:none;"><code data-line-numbers="2-4|7|9" data-noescape><span style="color:#75715e"># .tool-versions — commiteado en el repo</span>
+<span style="color:#a6e22e">nodejs</span>    <span style="color:#ae81ff">18.19.0</span>
+<span style="color:#a6e22e">python</span>    <span style="color:#ae81ff">3.11.5</span>
+<span style="color:#a6e22e">terraform</span> <span style="color:#ae81ff">1.6.0</span>
+
+<span style="color:#75715e"># Cada developer nuevo ejecuta:</span>
+<span style="color:#66d9e8">asdf</span> install &amp;&amp; <span style="color:#66d9e8">make</span> setup
+
+<span style="color:#75715e"># → Ambiente idéntico al de CI. En menos de 10 minutos.</span></code></pre>
+        </div>
+      </div>
+      <aside class="notes">Mostrar el .tool-versions real. Un archivo, un comando. asdf install lo lee y configura todo.</aside>
+    </section>
     </section>
 
     <!-- SLIDE 6: ACTO 2 -->
-    <section data-autoslide="1000" data-auto-animate>
+    <section>
+    <section data-autoslide="1000">
       <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
         <div class="act-label" data-id="act-label"><span class="dim">Acto 2 ·</span> El problema de la infraestructura</div>
         <div style="flex:1;display:flex;align-items:center;padding:0 48px;">
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;width:100%;">
-            <div class="fragment" style="padding:8px 24px 8px 0;border-right:1px solid rgba(255,255,255,0.07);">
+            <div class="fragment" style="padding:8px 24px 8px 0;border-right:1px solid rgba(0,0,0,0.08);">
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
                 <span style="color:#ef4444;font-size:36px;font-weight:900;line-height:1;">✗</span>
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#ef4444;">Sin estándar</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:16px;">
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Bash script</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">GitHub Action a medias</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Deploy manual</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">"¿Funciona en prod?"</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Bash script</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">GitHub Action a medias</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Deploy manual</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#ef4444;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">"¿Funciona en prod?"</span></div>
               </div>
             </div>
-            <div class="fragment" style="padding:8px 24px;border-right:1px solid rgba(255,255,255,0.07);">
+            <div class="fragment" style="padding:8px 24px;border-right:1px solid rgba(0,0,0,0.08);">
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
                 <span style="color:#E8560A;font-size:36px;font-weight:900;line-height:1;">→</span>
-                <span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#E8560A;">IaC como contrato</span>
+                <span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#E8560A;">Todo como código</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:16px;">
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Módulos versionados</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Revisión compartida</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Definición de "correcto"</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Drift visible</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Módulos versionados</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Revisión compartida</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Definición de "correcto"</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#E8560A;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Drift visible</span></div>
               </div>
-              <pre style="margin-top:14px;border-radius:4px;overflow:hidden;font-size:11px;"><code class="language-hcl">module "svc" {
-  source  = "org/tf-modules//lambda"
-  version = "2.1.0"
-  runtime = "nodejs18.x"
-}</code></pre>
             </div>
-            <div class="fragment" data-autoslide="0" style="padding:8px 0 8px 24px;">
+            <div class="fragment" style="padding:8px 0 8px 24px;">
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
                 <span style="color:#22c55e;font-size:36px;font-weight:900;line-height:1;">✓</span>
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:24px;font-weight:900;color:#22c55e;">Golden Path</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:16px;">
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Self-service</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Defaults seguros</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Equipos autónomos</span></div>
-                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#999;">Invitación, no mandato</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Self-service</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Defaults seguros</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Equipos autónomos</span></div>
+                <div style="display:flex;gap:12px;"><span style="color:#22c55e;flex-shrink:0;font-size:19px;line-height:1.5;">·</span><span style="font-size:19px;color:#4A4A4A;">Invitación, no mandato</span></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="story-quote" data-id="story-quote">"Nadie había escrito qué significaba 'listo para producción'"</div>
+        <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Nadie había escrito qué significaba 'listo para producción'"</div>
       </div>
-      <aside class="notes">Historia del equipo debuggeando sin saber qué versión corre en cada ambiente. IaC → Golden Path. "Nadie había escrito qué significaba 'listo para producción'"</aside>
+      <aside class="notes">"La consistencia de entornos es el mínimo. Lo que viene es más difícil — acuerdos." Monolito: un solo repo, back + front + DB, equipo dedicado por submódulo. Sin estándar de deploys — Terraform, packaging manual, GitHub Actions, Azure DevOps, SSH. Cada equipo había llegado ahí solo. Los servicios empezaron a perder el hilo entre sí — silencioso al principio, sin errores visibles. Los reportes llegaron después. "Debuggear en un sistema así es arqueología. No buscas el bug todavía — primero tienes que entender qué está corriendo y desde cuándo." "En algún punto dejé de buscar qué se había roto. Empecé a buscar cuál era la forma correcta." No había respuesta — no porque nadie supiera, sino porque nadie lo había decidido. Y no era la primera vez — era la tercera en pocos meses. Distinto equipo, distinto servicio, mismo problema. [Pausa.] Esa semana escribimos el primer workflow compartido. Tres meses después los cinco equipos lo usaban. Y fue ahí, cuando más dependían de nosotros, que nos convertimos en exactamente lo que queríamos resolver. [Pausa.] "Éramos el cuello de botella." Todo como código = contratos de confiabilidad. Golden path = invitación, no mandato. [↓ código]</aside>
+    </section>
+    <section class="code-slide">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 2 ·</span> El problema de la infraestructura</div>
+        <div class="slide-heading">Un deploy, una forma</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:20px;min-height:0;padding:12px 48px 24px;align-items:start;">
+          <div style="display:flex;flex-direction:column;min-height:0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ef4444;padding-bottom:8px;flex-shrink:0;">Antes — cada equipo, su propio script</div>
+            <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:7px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+              <span style="color:#ff5f57;font-size:12px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:12px;line-height:1;">⬤</span><span style="color:#28c840;font-size:12px;line-height:1;">⬤</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:12px;color:#aaa;margin-left:6px;">backend/.github/workflows/deploy.yml</span>
+            </div>
+            <pre style="font-size:13px;border-radius:0 0 6px 6px;flex:none;"><code class="language-yaml">name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci && npm run build
+      - env:
+          HOST: ${{ secrets.PROD_HOST }}
+          KEY:  ${{ secrets.SSH_KEY }}
+        run: |
+          rsync -az dist/ deploy@$HOST:/srv/backend
+          ssh deploy@$HOST "pm2 restart backend"
+# frontend: el suyo. migrations: el suyo.
+# Sin tests. Sin rollback. Sin estándar.</code></pre>
+          </div>
+          <div class="fragment fade-left" style="display:flex;flex-direction:column;min-height:0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#22c55e;padding-bottom:8px;flex-shrink:0;">Después — todos los equipos, una convención</div>
+            <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:7px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+              <span style="color:#ff5f57;font-size:12px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:12px;line-height:1;">⬤</span><span style="color:#28c840;font-size:12px;line-height:1;">⬤</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:12px;color:#aaa;margin-left:6px;">backend/.github/workflows/deploy.yml</span>
+            </div>
+            <pre style="font-size:13px;border-radius:0 0 6px 6px;flex:none;"><code class="language-yaml">name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    uses: myorg/platform/.github/workflows/deploy-service.yml@main
+    with:
+      service:     backend
+      environment: production
+    secrets: inherit
+# frontend: igual. migrations: igual.
+# → 5 servicios. Un workflow. Una convención.</code></pre>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Izquierda: cada equipo tenía el suyo — SSH, rsync, pm2, sin tests, sin rollback. Derecha: un solo workflow reutilizable, tres parámetros. El equipo llama el contrato, la plataforma hace el resto.</aside>
+    </section>
+
+    <!-- SUB-SLIDE: WORKFLOW INTERNALS -->
+    <section class="code-slide">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 2 ·</span> El problema de la infraestructura</div>
+        <div class="slide-heading">Lo que estandariza por ti</div>
+        <div style="flex:1;display:flex;flex-direction:column;min-height:0;padding:8px 48px 24px;">
+          <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:7px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="color:#ff5f57;font-size:12px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:12px;line-height:1;">⬤</span><span style="color:#28c840;font-size:12px;line-height:1;">⬤</span>
+            <span style="font-family:'Consolas','Courier New',monospace;font-size:12px;color:#aaa;margin-left:6px;">platform/.github/workflows/deploy-service.yml</span>
+            <span style="font-family:Arial,sans-serif;font-size:11px;color:#E8560A;margin-left:auto;letter-spacing:1px;">← compartido por todos los equipos</span>
+          </div>
+          <pre style="font-size:13px;border-radius:0 0 6px 6px;flex:1;min-height:0;overflow:hidden;"><code class="language-yaml">on:
+  workflow_call:
+    inputs:
+      service:     { required: true, type: string }
+      environment: { required: true, type: string }
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm test           # siempre. sin excepción.
+      - run: npm run build
+      - uses: ./.github/actions/deploy
+        with:
+          service:     ${{ inputs.service }}
+          environment: ${{ inputs.environment }}
+      - if: failure()
+        uses: ./.github/actions/rollback
+        with:
+          service: ${{ inputs.service }}
+# tests obligatorios. rollback automático.
+# lo que nadie hacía solo — ahora es el default.</code></pre>
+        </div>
+      </div>
+      <aside class="notes">Tests obligatorios antes del deploy — nadie los corría antes. Rollback automático en fallo. Nadie tuvo que implementarlo — es el default para cualquier equipo que llame el workflow.</aside>
+    </section>
     </section>
 
     <!-- SLIDE 7: ACTO 3 — GATE VS GUARDRAIL -->
-    <section data-autoslide="1000" data-auto-animate>
+    <section>
+    <section data-autoslide="1000">
       <div class="top-bar" data-id="top-bar"></div>
-      <div style="position:absolute;top:4px;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.07),transparent);"></div>
+      <div style="position:absolute;top:4px;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.08),transparent);"></div>
       <div class="slide-body">
         <div class="act-label" data-id="act-label"><span class="dim">Acto 3 ·</span> El problema de la escala</div>
         <div style="flex:1;display:flex;align-items:center;padding:0 48px;">
@@ -277,10 +431,10 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#ef4444;">Gate</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Para. Pide permiso. Espera.</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Equipos bloqueados días</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Tu DM = cola de tickets</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Plataforma = cuello de botella</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Para. Pide permiso. Espera.</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Equipos bloqueados días</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Tu DM = cola de tickets</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#ef4444;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Plataforma = cuello de botella</span></div>
               </div>
             </div>
             <div style="padding:8px 16px;">
@@ -289,145 +443,297 @@
                 <span style="font-family:'Arial Black',Arial,sans-serif;font-size:28px;font-weight:900;color:#22c55e;">Guardrail</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:18px;">
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Avanza — estos son tus límites</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Self-service con defaults seguros</span></div>
-                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;"><span class="tech">policy-as-code</span> en deploy time</span></div>
-                <div class="fragment" data-autoslide="0" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#999;">Plataforma como producto</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Avanza — estos son tus límites</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Self-service con defaults seguros</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;"><span class="tech">policy-as-code</span> en deploy time</span></div>
+                <div class="fragment" style="display:flex;gap:14px;"><span style="color:#22c55e;flex-shrink:0;font-size:22px;line-height:1.5;">·</span><span style="font-size:22px;color:#4A4A4A;">Plataforma como producto</span></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="story-quote" data-id="story-quote">"Completamente manual. Completamente evitable."</div>
+        <div class="story-quote fragment grow" data-id="story-quote" data-autoslide="0">"Completamente manual. Completamente evitable."</div>
       </div>
-      <aside class="notes">Historia: secreto llegó al repo → remediación manual → scanner automático. "Completamente manual. Completamente evitable." Gate = pide permiso. Guardrail = avanza dentro de límites.</aside>
+      <aside class="notes">"La sensación cuando tus DMs son una cola de tickets." Gate: para, pide permiso, espera. Guardrail: avanza — aquí están los límites. Self-service = camino seguro = camino fácil. Plataforma como producto: demos internas, "¿cuál es tu mayor dolor?" Historia: secreto en el repo → cadena manual → avisar, rotar, limpiar, verificar. "Completamente manual. Completamente evitable." Scanner: segundos, sin cadena. → "¿Qué pasa cuando algo se rompe a las 2AM y nadie sabe dónde mirar?" [↓ código]</aside>
+    </section>
+    <section class="code-slide">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 3 ·</span> El problema de la escala</div>
+        <div class="slide-heading">El módulo como guardrail</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:20px;min-height:0;padding:12px 48px 24px;align-items:start;">
+          <!-- EL CONTRATO -->
+          <div style="display:flex;flex-direction:column;min-height:0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8560A;padding-bottom:8px;flex-shrink:0;">El contrato</div>
+            <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:7px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+              <span style="color:#ff5f57;font-size:12px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:12px;line-height:1;">⬤</span><span style="color:#28c840;font-size:12px;line-height:1;">⬤</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:12px;color:#aaa;margin-left:6px;">modules/lambda_timeout_alarm/variables.tf</span>
+            </div>
+            <pre style="font-size:14px;border-radius:0 0 6px 6px;flex:none;"><code data-lang="hcl">variable "function_name"          { type = string }
+variable "timeout_threshold"      { type = number }
+variable "timeout_window_minutes" { type = number }
+variable "enabled" {
+  type    = bool
+  default = true
+}
+variable "sns_topic_arns" {
+  type    = list(string)
+  default = []
+}</code></pre>
+          </div>
+          <!-- EL USO -->
+          <div class="fragment fade-left" style="display:flex;flex-direction:column;min-height:0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#22c55e;padding-bottom:8px;flex-shrink:0;">El uso</div>
+            <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:7px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+              <span style="color:#ff5f57;font-size:12px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:12px;line-height:1;">⬤</span><span style="color:#28c840;font-size:12px;line-height:1;">⬤</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:12px;color:#aaa;margin-left:6px;">main.tf</span>
+            </div>
+            <div style="background:#272822;border-radius:0 0 6px 6px;flex:1;min-height:0;overflow:hidden;padding:16px 20px;font-family:'Consolas','Courier New',monospace;font-size:13px;color:#f8f8f2;line-height:1.5;white-space:pre;">
+              <code data-lang="hcl" style="display:block;padding:0;background:transparent;"># payment-api — 3 timeouts en 5 min → alerta
+module "payment_api_alarm" {
+  source = "./modules/lambda_timeout_alarm"
+  function_name          = aws_lambda_function.payment_api.function_name
+  timeout_threshold      = 3
+  timeout_window_minutes = 5
+  sns_topic_arns         = [aws_sns_topic.alerts.arn]
+}</code>
+              <code class="fragment fade-up" data-lang="hcl" style="display:block;margin-top:16px;padding:0;background:transparent;"># orders-api — mismo módulo, mismo estándar
+module "orders_api_alarm" {
+  source = "./modules/lambda_timeout_alarm"
+  function_name          = aws_lambda_function.orders_api.function_name
+  timeout_threshold      = 3
+  timeout_window_minutes = 5
+  sns_topic_arns         = [aws_sns_topic.alerts.arn]
+}
+# → 12 equipos. Un módulo. Una convención.</code>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">El guardrail en código: 6 líneas por equipo, el módulo hace el resto. Sin reunión, sin ticket, sin "¿pusiste la alarma?". Self-service con defaults seguros — el camino correcto es el camino fácil.</aside>
+    </section>
+
+    <!-- SUB-SLIDE: INTERNALS -->
+    <section class="code-slide">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 3 ·</span> El problema de la escala</div>
+        <div class="slide-heading">Lo que construye por ti</div>
+        <div style="flex:1;display:flex;flex-direction:column;min-height:0;padding:8px 48px 24px;">
+          <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:7px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="color:#ff5f57;font-size:12px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:12px;line-height:1;">⬤</span><span style="color:#28c840;font-size:12px;line-height:1;">⬤</span>
+            <span style="font-family:'Consolas','Courier New',monospace;font-size:12px;color:#aaa;margin-left:6px;">modules/lambda_timeout_alarm/main.tf</span>
+            <span style="font-family:Arial,sans-serif;font-size:11px;color:#E8560A;margin-left:auto;letter-spacing:1px;">← generado a partir de tus 6 líneas</span>
+          </div>
+          <pre style="font-size:14px;border-radius:0 0 6px 6px;flex:1;min-height:0;overflow:hidden;"><code class="language-plaintext" data-lang="hcl">locals {
+  log_group_name    = "/aws/lambda/${var.function_name}"
+  metric_name       = "${var.function_name}-Timeouts"
+  metric_period_sec = var.timeout_window_minutes * 60
+}
+
+resource "aws_cloudwatch_log_metric_filter" "timeouts" {
+  count          = var.enabled ? 1 : 0
+  log_group_name = local.log_group_name
+  pattern        = "Task timed out"
+
+  metric_transformation {
+    name      = local.metric_name
+    namespace = var.namespace
+    value     = "1"
+    unit      = "Count"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "timeout_alarm" {
+  count      = var.enabled ? 1 : 0
+  alarm_name = "${var.function_name}-timeouts"
+
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  period              = local.metric_period_sec
+  statistic           = "Sum"
+  threshold           = var.timeout_threshold
+
+  treat_missing_data = "notBreaching"
+  alarm_actions      = var.sns_topic_arns
+}</code></pre>
+        </div>
+      </div>
+      <aside class="notes">Lo que el módulo construye automáticamente — el equipo no necesita saber nada de esto. Filtros de logs, métrica personalizada, alarma con SNS. El camino seguro es el camino fácil.</aside>
+    </section>
     </section>
 
     <!-- SLIDE 8: ACTO 4 -->
-    <section data-autoslide="1000" data-auto-animate>
-      <div class="top-bar" data-id="top-bar"></div>
-      <div class="slide-body">
-        <div class="act-label" data-id="act-label"><span class="dim">Acto 4 ·</span> El ciclo de retroalimentación</div>
-        <div style="margin:10px 48px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:4px solid #E8560A;padding:12px 18px;flex-shrink:0;">
-          <p style="font-size:17px;color:#888;font-style:italic;">"Una plataforma sin visibilidad no es una plataforma. Es una caja negra con buena documentación."</p>
-        </div>
-        <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:12px 48px 0;">
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:14px 14px;">
-            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Visibilidad</p>
-            <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
-              <div style="font-size:13px;color:#777;text-align:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">Deployment Frequency</div>
-              <div style="font-size:13px;color:#777;text-align:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">Lead Time for Changes</div>
-              <div style="font-size:13px;color:#777;text-align:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">Change Failure Rate</div>
-              <div style="font-size:13px;color:#777;text-align:center;padding:4px 0;">MTTR</div>
-            </div>
-          </div>
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:14px 14px;">
-            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Runbooks como código</p>
-            <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;margin-top:6px;">El conocimiento de las personas convertido en remediación automatizada.</p>
-            <pre style="margin-top:10px;border-radius:4px;overflow:hidden;font-size:12px;"><code class="language-bash">./runbooks/fix-connection-pool.sh</code></pre>
-          </div>
-          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #E8560A;border-radius:4px;padding:14px 14px;">
-            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#e8e8e8;text-align:center;margin-bottom:10px;">Cerrar el ciclo</p>
-            <p style="font-size:14px;color:#999;text-align:center;line-height:1.5;margin-top:6px;">Incidente → corrección en la plataforma → nunca más.</p>
-          </div>
-        </div>
-        <div class="story-quote" data-id="story-quote">"Lo aprendimos a las malas."</div>
-      </div>
-      <aside class="notes">Historia: logs dispersos, Kibana. "Lo aprendimos a las malas." DORA: 4 métricas. Runbooks como código. Cerrar el ciclo.</aside>
-    </section>
-
-    <!-- SLIDE 9: ACTO 5 -->
-    <section data-autoslide="1000" data-auto-animate>
-      <div class="top-bar" data-id="top-bar"></div>
-      <div class="slide-body">
-        <div class="act-label" data-id="act-label"><span class="dim">Acto 5 ·</span> Tres cosas</div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:0 48px;">
-          <div class="fragment" style="display:flex;align-items:stretch;">
-            <div style="width:80px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;font-weight:900;color:#fff;">1</span></div>
-            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-left:none;padding:16px 22px;">
-              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:900;color:#e8e8e8;margin-bottom:6px;">Empieza por la experiencia del desarrollador</p>
-              <p style="font-size:15px;color:#999;line-height:1.4;">Si tarda más de 1 hora en correr la app, tu plataforma tiene un bug. Mídelo.</p>
-            </div>
-          </div>
-          <div class="fragment" style="display:flex;align-items:stretch;">
-            <div style="width:80px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;font-weight:900;color:#fff;">2</span></div>
-            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-left:none;padding:16px 22px;">
-              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:900;color:#e8e8e8;margin-bottom:6px;">La adopción es una feature</p>
-              <p style="font-size:15px;color:#999;line-height:1.4;">No optimices para tu equipo — optimiza para la velocidad de los equipos de producto.</p>
-            </div>
-          </div>
-          <div class="fragment" data-autoslide="0" style="display:flex;align-items:stretch;">
-            <div style="width:80px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:36px;font-weight:900;color:#fff;">3</span></div>
-            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-left:none;padding:16px 22px;">
-              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:900;color:#e8e8e8;margin-bottom:6px;">Tu plataforma nunca está terminada</p>
-              <p style="font-size:15px;color:#999;line-height:1.4;">Tiene usuarios. Los usuarios tienen problemas. Trátala como un producto. Elige siempre el guardrail.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <aside class="notes">Lección 1: La precipitación es el anti-patrón. Puse código en prod que no entendía. Lección 2: La plataforma que nadie usa no sirve. Lección 3: Producto con usuarios reales.</aside>
-    </section>
-
-    <!-- SLIDE 10: PLAN DE ACCIÓN -->
+    <section>
     <section data-autoslide="1000">
       <div class="top-bar" data-id="top-bar"></div>
       <div class="slide-body">
+        <div class="act-label" data-id="act-label"><span class="dim">Acto 4 ·</span> El ciclo de retroalimentación</div>
+        <div style="margin:30px 48px 0;background:#FDE8DA;border:1px solid #E0E0E0;border-left:4px solid #E8560A;padding:10px 18px;flex-shrink:0;">
+          <p style="font-size:15px;color:#888;font-style:italic;">"Una plataforma sin visibilidad no es una plataforma. Es una caja negra con buena documentación."</p>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;padding:0;">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0 48px;align-items:start;width:100%;">
+            <div class="fragment" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;border-radius:4px;padding:20px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#2D2D2D;margin-bottom:16px;">Las 4 métricas DORA</p>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div><div style="font-size:13px;font-weight:700;color:#2D2D2D;">Deployment Frequency</div><div style="font-size:12px;color:#888;margin-top:3px;">¿Con qué velocidad entregamos?</div></div>
+                <div><div style="font-size:13px;font-weight:700;color:#2D2D2D;">Lead Time for Changes</div><div style="font-size:12px;color:#888;margin-top:3px;">De commit a producción</div></div>
+                <div><div style="font-size:13px;font-weight:700;color:#2D2D2D;">Change Failure Rate</div><div style="font-size:12px;color:#888;margin-top:3px;">% de deploys que fallan</div></div>
+                <div><div style="font-size:13px;font-weight:700;color:#2D2D2D;">MTTR</div><div style="font-size:12px;color:#888;margin-top:3px;">Velocidad de recuperación</div></div>
+              </div>
+              <div style="margin-top:14px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.07);font-size:11px;color:#888;font-style:italic;">4 números. Una sola conversación con tu CTO.</div>
+            </div>
+            <div class="fragment" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;border-radius:4px;padding:20px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#2D2D2D;margin-bottom:16px;">Runbooks como código</p>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <span style="font-size:12px;font-weight:700;color:#ef4444;flex-shrink:0;padding-top:1px;">Antes</span>
+                  <span style="font-size:13px;color:#4A4A4A;">20 min buscando en Slack quién sabe qué hacer</span>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <span style="font-size:12px;font-weight:700;color:#22c55e;flex-shrink:0;padding-top:1px;">Ahora</span>
+                  <div>
+                    <div style="font-size:13px;color:#4A4A4A;font-family:'Consolas','Courier New',monospace;">./fix-connection-pool.sh</div>
+                    <div style="font-size:11px;color:#888;margin-top:3px;">restart + rollout status → 90s</div>
+                  </div>
+                </div>
+                <div style="font-size:13px;color:#E8560A;font-weight:700;text-align:center;padding-top:10px;border-top:1px solid rgba(0,0,0,0.07);">MTTR objetivo: &lt; 2 min</div>
+              </div>
+            </div>
+            <div class="fragment" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;border-radius:4px;padding:20px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:900;color:#2D2D2D;margin-bottom:16px;">Cerrar el ciclo</p>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#4A4A4A;"><span style="color:#ef4444;font-weight:900;font-size:16px;flex-shrink:0;line-height:1.4;">❶</span><div><div>Incidente en producción</div><div style="font-size:11px;color:#888;margin-top:2px;">El sistema avisa. Tú actúas.</div></div></div>
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#4A4A4A;"><span style="color:#E8560A;font-weight:900;font-size:16px;flex-shrink:0;line-height:1.4;">❷</span><div><div>Fix en la plataforma</div><div style="font-size:11px;color:#888;margin-top:2px;">No en cada servicio.</div></div></div>
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#4A4A4A;"><span style="color:#22c55e;font-weight:900;font-size:16px;flex-shrink:0;line-height:1.4;">❸</span><div><div>Nunca más manual</div><div style="font-size:11px;color:#888;margin-top:2px;">El runbook se convierte en código.</div></div></div>
+              </div>
+              <div style="font-size:12px;color:#888;font-style:italic;padding-top:10px;margin-top:2px;border-top:1px solid rgba(0,0,0,0.07);">"¿Qué lo haría imposible que volviera a pasar?"</div>
+            </div>
+          </div>
+        </div>
+        <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0" style="flex-shrink:0;">"Lo aprendimos a las malas."</div>
+      </div>
+      <aside class="notes">"Una plataforma sin visibilidad es una caja negra con buena documentación." Dashboards para ellos, no para nosotros. DORA: Deployment Frequency, Lead Time, Change Failure Rate, MTTR. "Sin esas cuatro cifras no sabes si lo que construyes mueve la aguja." Historia: peticiones sin llegar, sin lugar centralizado. "Llevaba veinte minutos en el servicio equivocado." Daño hecho. Esa semana: Kibana. "No porque alguien lo pidió — sino porque nos costó muy caro no tenerlo." Runbooks ejecutables = guardia más tranquila. → "Las cosas que desearía que alguien me hubiera dicho." [↓ código]</aside>
+    </section>
+    <section class="code-slide">
+      <div class="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label"><span class="dim">Acto 4 ·</span> El ciclo de retroalimentación</div>
+        <div class="slide-heading">Runbook como código</div>
+        <div style="flex:1;display:flex;flex-direction:column;min-height:0;padding:0 48px 24px;">
+          <div style="background:#3c3c3c;border-radius:6px 6px 0 0;padding:8px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="color:#ff5f57;font-size:13px;line-height:1;">⬤</span><span style="color:#ffbd2e;font-size:13px;line-height:1;">⬤</span><span style="color:#28c840;font-size:13px;line-height:1;">⬤</span>
+            <span style="font-family:'Consolas','Courier New',monospace;font-size:13px;color:#aaa;margin-left:8px;">runbooks/fix-connection-pool.sh</span>
+          </div>
+          <pre style="font-size:16px;border-radius:0 0 6px 6px;"><code class="language-bash" data-line-numbers="2-3|5|7-9|11">#!/usr/bin/env bash
+# runbooks/fix-connection-pool.sh
+# Escrito después del incidente. Nunca más manual.
+
+set -euo pipefail
+
+echo "→ Restarting connection pool..."
+kubectl rollout restart deployment/payment-api -n prod
+kubectl rollout status  deployment/payment-api -n prod --timeout=90s
+
+echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
+        </div>
+      </div>
+      <aside class="notes">fix-connection-pool.sh — escrito después del incidente de agotamiento del pool de conexiones. set -euo pipefail: falla inmediato ante cualquier error. kubectl rollout restart: recrea los pods de payment-api en prod, drenando el pool. kubectl rollout status --timeout=90s: espera y confirma que el rollout completó. Total: menos de 2 minutos. Antes: 20 minutos buscando en Slack quién sabe qué hacer.</aside>
+    </section>
+    </section>
+
+    <!-- SLIDE 9: ACTO 5 -->
+    <section data-autoslide="1000">
+      <div class="top-bar" data-id="top-bar"></div>
+      <div class="slide-body">
+        <div class="act-label" data-id="act-label"><span class="dim">Acto 5 ·</span> Tres cosas</div>
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:0 48px;">
+          <div class="fragment" style="display:flex;align-items:stretch;">
+            <div style="width:90px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:44px;font-weight:900;color:#fff;">1</span></div>
+            <div style="flex:1;background:#F4F4F4;border:1px solid #E0E0E0;border-left:none;padding:28px 32px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:22px;font-weight:900;color:#2D2D2D;margin-bottom:8px;">Empieza por la experiencia del desarrollador</p>
+              <p style="font-size:17px;color:#4A4A4A;line-height:1.5;">Si tarda más de 1 hora en correr la app, tu plataforma tiene un bug. Mídelo.</p>
+            </div>
+          </div>
+          <div class="fragment" style="display:flex;align-items:stretch;">
+            <div style="width:90px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:44px;font-weight:900;color:#fff;">2</span></div>
+            <div style="flex:1;background:#F4F4F4;border:1px solid #E0E0E0;border-left:none;padding:28px 32px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:22px;font-weight:900;color:#2D2D2D;margin-bottom:8px;">La adopción es una feature</p>
+              <p style="font-size:17px;color:#4A4A4A;line-height:1.5;">No optimices para tu equipo — optimiza para la velocidad de los equipos de producto.</p>
+            </div>
+          </div>
+          <div class="fragment" data-autoslide="0" style="display:flex;align-items:stretch;">
+            <div style="width:90px;background:linear-gradient(135deg,#E8560A,#C94D08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:44px;font-weight:900;color:#fff;">3</span></div>
+            <div style="flex:1;background:#F4F4F4;border:1px solid #E0E0E0;border-left:none;padding:28px 32px;">
+              <p style="font-family:'Arial Black',Arial,sans-serif;font-size:22px;font-weight:900;color:#2D2D2D;margin-bottom:8px;">Tu plataforma nunca está terminada</p>
+              <p style="font-size:17px;color:#4A4A4A;line-height:1.5;">Tiene usuarios. Los usuarios tienen problemas. Trátala como un producto. Elige siempre el guardrail.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">"Tres cosas. Si no te llevas nada más, llévate estas." [Levanta dedos.] 1: DX primero — nuevo en menos de una hora = bug de plataforma. Mide el tiempo de incorporación. 2: Mejor herramienta = la que usan. Optimiza velocidad de product teams. Adopción es una feature. 3: Plataforma nunca terminada = tiene usuarios = trátala como producto. Cuando elijas entre gate y guardrail — elige siempre el guardrail.</aside>
+    </section>
+
+    <!-- SLIDE 10: PLAN DE ACCIÓN -->
+    <section>
+      <div class="top-bar" data-id="top-bar"></div>
+      <div class="slide-body">
         <div class="slide-heading" style="padding-top:12px;">Tu plan de acción</div>
-        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:12px;padding:12px 48px 0;">
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Entornos</span></div>
-            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
-              <div style="font-size:13px;color:#999;">☐ Agrega .tool-versions a cada repositorio</div>
-              <div style="font-size:13px;color:#999;">☐ Estandariza el gestor de versiones</div>
-              <div style="font-size:13px;color:#999;">☐ Mide el tiempo de onboarding ahora</div>
-              <div style="font-size:13px;color:#999;">☐ Automatiza el setup del entorno con un solo comando</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;padding:12px 48px 0;">
+          <div class="fragment fade-from-tl" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Entornos</span></div>
+            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+              <div style="font-size:15px;color:#4A4A4A;">☐ Agrega .tool-versions a cada repositorio</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Estandariza el gestor de versiones</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Mide el tiempo de onboarding ahora</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Automatiza el setup del entorno con un solo comando</div>
             </div>
           </div>
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Infraestructura</span></div>
-            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
-              <div style="font-size:13px;color:#999;">☐ Audita cómo despliega cada equipo</div>
-              <div style="font-size:13px;color:#999;">☐ Crea un módulo de IaC compartido</div>
-              <div style="font-size:13px;color:#999;">☐ Define qué es un deploy correcto</div>
-              <div style="font-size:13px;color:#999;">☐ Asigna un dueño explícito a cada servicio en un catálogo compartido</div>
+          <div class="fragment fade-from-tr" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Infraestructura</span></div>
+            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+              <div style="font-size:15px;color:#4A4A4A;">☐ Audita cómo despliega cada equipo</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Crea un módulo de IaC compartido</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Define qué es un deploy correcto</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Asigna un dueño explícito a cada servicio en un catálogo compartido</div>
             </div>
           </div>
-          <div class="fragment" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Escala</span></div>
-            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
-              <div style="font-size:13px;color:#999;">☐ Haz una lista de lo que los equipos te piden</div>
-              <div style="font-size:13px;color:#999;">☐ Reemplaza los gates por guardrails</div>
-              <div style="font-size:13px;color:#999;">☐ Mide el NPS interno de tu plataforma cada trimestre</div>
-              <div style="font-size:13px;color:#999;">☐ Documenta tu golden path con un ejemplo real de principio a fin</div>
+          <div class="fragment fade-from-bl" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Escala</span></div>
+            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+              <div style="font-size:15px;color:#4A4A4A;">☐ Haz una lista de lo que los equipos te piden</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Reemplaza los gates por guardrails</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Mide el NPS interno de tu plataforma cada trimestre</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Documenta tu golden path con un ejemplo real de principio a fin</div>
             </div>
           </div>
-          <div class="fragment" data-autoslide="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:10px 16px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:900;color:#fff;">Visibilidad</span></div>
-            <div style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
-              <div style="font-size:13px;color:#999;">☐ Calcula tus 4 métricas DORA antes de cualquier iniciativa</div>
-              <div style="font-size:13px;color:#999;">☐ Expón métricas a los equipos dependientes</div>
-              <div style="font-size:13px;color:#999;">☐ Tras cada incidente: ¿qué lo haría imposible?</div>
-              <div style="font-size:13px;color:#999;">☐ Define SLOs para tus servicios críticos y compártelos con los equipos dependientes</div>
+          <div class="fragment fade-from-br" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
+            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Visibilidad</span></div>
+            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+              <div style="font-size:15px;color:#4A4A4A;">☐ Calcula tus 4 métricas DORA antes de cualquier iniciativa</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Expón métricas a los equipos dependientes</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ Tras cada incidente: ¿qué lo haría imposible?</div>
+              <div style="font-size:15px;color:#4A4A4A;">☐ SLOs para servicios críticos — compártelos</div>
             </div>
           </div>
         </div>
         <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:8px 48px 10px;flex-shrink:0;">
           <span style="font-size:13px;color:#555;font-style:italic;">Descarga el flyer →</span>
-          <img src="../assets/QR_PA.jpeg" style="width:52px;height:52px;object-fit:contain;">
+          <img src="../assets/QR_PA.jpeg" style="width:52px;height:52px;object-fit:contain;cursor:pointer;border-radius:4px;" onclick="document.getElementById('qr-lightbox').style.display='flex'">
         </div>
       </div>
-      <aside class="notes">Mostrar el checklist. "Esto es lo que yo haría en la próxima semana." Mencionar el flyer.</aside>
+      <aside class="notes">[Deja la slide visible 10 segundos antes de hablar.] "Esto es lo que yo haría en la próxima semana." Mencionar el flyer.</aside>
     </section>
 
     <!-- SLIDE 11: CIERRE -->
     <section style="background:radial-gradient(ellipse at 30% 50%,rgba(124,58,237,0.15) 0%,transparent 55%),radial-gradient(ellipse at 70% 50%,rgba(232,86,10,0.07) 0%,transparent 55%),#0a080f;">
       <div class="top-bar" data-id="top-bar"></div>
-      <div style="position:absolute;top:4px;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);"></div>
+      <div style="position:absolute;top:0;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);z-index:11;"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;align-items:center;gap:28px;padding-left:56px;padding-right:64px;">
         <p style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1.25;text-align:center;max-width:900px;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
         <p style="font-size:20px;color:#555;font-style:italic;text-align:center;">Espacio abierto para debate y lo que quieran traer a la mesa.</p>
         <p style="font-size:16px;color:#444;text-align:center;"><strong style="color:#666;">Jonathan Ramírez</strong> · N-iX</p>
       </div>
-      <aside class="notes">Cierre. Repetir el hilo conductor. Abrir para Q&amp;A. Preguntas preparadas: métricas DORA, buy-in de liderazgo, por dónde empezar.</aside>
+      <aside class="notes">"Platform Engineering no se trata de Kubernetes. No se trata de Terraform." [Pausa larga. Misma frase que slide 2 — ahora conclusión ganada, no promesa. No la digas igual — deja que el silencio la amplifique.] "Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie." [Pausa. Sonríe.] Q&amp;A preparadas: startup de 10 personas, cuánto tiempo resultados, qué fue lo más difícil aprender.</aside>
     </section>
 
   </div>
@@ -444,6 +750,52 @@
     highlight: { highlightOnLoad: true },
     plugins: [RevealNotes, RevealHighlight, RevealZoom]
   });
+  Reveal.on('ready', () => {
+    const KW  = new Set(['variable','resource','module','locals','data','output','provider','terraform','count','for_each','depends_on','lifecycle','dynamic']);
+    const LIT = new Set(['true','false','null']);
+    const TYP = new Set(['string','number','bool','list','map','set','object','any','tuple']);
+    function hclColorize(text) {
+      const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const sp  = (c, s) => `<span class="${c}">${esc(s)}</span>`;
+      let out = '', i = 0;
+      while (i < text.length) {
+        if (text[i] === '#') {
+          const end = (() => { const j = text.indexOf('\n', i); return j === -1 ? text.length : j; })();
+          out += sp('hljs-comment', text.slice(i, end)); i = end;
+        } else if (text[i] === '"') {
+          let j = i + 1;
+          while (j < text.length && text[j] !== '"') { if (text[j] === '\\') j++; j++; }
+          out += sp('hljs-string', text.slice(i, j + 1)); i = j + 1;
+        } else if (/[a-zA-Z_]/.test(text[i])) {
+          let j = i; while (j < text.length && /\w/.test(text[j])) j++;
+          const w = text.slice(i, j);
+          if (KW.has(w))       out += sp('hljs-keyword', w);
+          else if (LIT.has(w)) out += sp('hljs-literal', w);
+          else if (TYP.has(w)) out += sp('hljs-type', w);
+          else                 out += esc(w);
+          i = j;
+        } else if (/\d/.test(text[i]) && (i === 0 || /\W/.test(text[i - 1]))) {
+          let j = i; while (j < text.length && /[\d.]/.test(text[j])) j++;
+          out += sp('hljs-number', text.slice(i, j)); i = j;
+        } else { out += esc(text[i++]); }
+      }
+      return out;
+    }
+    // Non-stepped blocks: replace innerHTML directly
+    document.querySelectorAll('code[data-lang="hcl"]:not([data-line-numbers])').forEach(b => {
+      b.innerHTML = hclColorize(b.textContent.replace(/^\n/, '').trimEnd());
+    });
+    // Stepped blocks: RevealHighlight has already built the line table — colorize each cell
+    document.querySelectorAll('code[data-lang="hcl"][data-line-numbers]').forEach(b => {
+      b.querySelectorAll('td.hljs-ln-code').forEach(td => {
+        td.innerHTML = hclColorize(td.textContent);
+      });
+    });
+  });
 </script>
+<!-- QR lightbox overlay -->
+<div id="qr-lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:99999;align-items:center;justify-content:center;cursor:pointer;" onclick="this.style.display='none'">
+  <img src="../assets/QR_PA.jpeg" style="width:380px;height:380px;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+</div>
 </body>
 </html>

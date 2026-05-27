@@ -1,0 +1,9 @@
+node_modules/
+.claude/
+.idea/
+.superpowers/
+
+# Build outputs — keep only the HTML presentation
+dist/*.pptx
+dist/*.pdf
+dist/hoja_de_intenciones.md
