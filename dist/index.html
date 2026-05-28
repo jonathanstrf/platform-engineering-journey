@@ -146,7 +146,7 @@
           <p class="fragment fade-up" style="font-size:22px;color:#666;font-style:italic;text-align:center;">Todo lo demás es el camino para llegar ahí.</p>
         </div>
       </div>
-      <aside class="notes">[Avanzar en silencio. Deja que la frase llegue antes de hablar. No la leas. → Slide 3 para presentarte.]</aside>
+      <aside class="notes">[Avanzar en silencio. Deja que la frase llegue antes de hablar. No la leas.] Cuando digas "vi los mismos problemas una y otra vez" → avanza a Slide 3.</aside>
     </section>
 
     <!-- SLIDE 3: LOS 4 PROBLEMAS -->
@@ -190,7 +190,7 @@
         </div>
         <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"No son problemas de personas. Son problemas de plataforma."</div>
       </div>
-      <aside class="notes">Me llamo Jonathan Ramírez. N-iX. Mismos problemas, distinto stack. "Resolverlos una vez, a nivel de plataforma, en lugar de sufrirlos para siempre." Los 4 problemas — ¿quién ha vivido esto? Pausa. "No son problemas de personas. Son problemas de plataforma."</aside>
+      <aside class="notes">"Y vi los mismos problemas una y otra vez, sin importar el stack, el tamaño del equipo o el presupuesto. Esta charla es sobre esos problemas. Y sobre resolverlos una vez, a nivel de plataforma, en lugar de sufrirlos para siempre." Presenta los 4 problemas. Pausa. "No son problemas de personas. Son problemas de plataforma."</aside>
     </section>
 
     <!-- SLIDE 4: 5 ACTOS -->
@@ -222,7 +222,7 @@
         </div>
         <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Cualquier desarrollador debería poder llegar a producción sin depender de nadie."</div>
       </div>
-      <aside class="notes">Recorre los 5 actos con la slide. No los expliques — solo los nombras. La audiencia sabe hacia dónde va.</aside>
+      <aside class="notes">Recorre los 5 actos con la slide. No los expliques — solo los nombras. "Esto va a ser un viaje en la construcción de plataformas confiables — contado a través de historias en cada una de las fases críticas." La audiencia sabe hacia dónde va.</aside>
     </section>
 
     <!-- SLIDE 5: ACTO 1 -->
@@ -264,7 +264,7 @@
         </div>
         <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Horas para descubrir que el problema era un número."</div>
       </div>
-      <aside class="notes">"Empecemos por el fondo del stack. No por Kubernetes. Por tu computador." Entropía sin restricciones. No culpar al dev — la plataforma falló 10 veces. .tool-versions + asdf/mise. Cierre apertura: "No fue un problema de Node — fue un problema de plataforma. Nadie lo había escrito." Corrección: 20 min. Estandarización: una tarde. Nunca más. "Los pequeños cambios son los que generan gran impacto." → "Todos sobre el mismo terreno. Y fue ahí cuando me di cuenta — el terreno era diferente para cada equipo." [↓ código]</aside>
+      <aside class="notes">"Empecemos por el fondo del stack. El más humano. Sin Kubernetes, sin Terraform, sin pipelines. Tu computador." Cada desarrollador tiene una máquina ligeramente distinta — SO, SDKs, paquetes globales de tres trabajos anteriores. El README solo dice 'npm install' como si eso fuera a resolver cualquier problema que surja. Entropía: sistemas sin restricciones tienden al caos — y nosotros somos el mediador que lo controla. "Volvamos a la historia. HORAS para descubrir que el problema era solo un número." [↓ código para la solución]</aside>
     </section>
     <section class="code-slide">
       <div class="top-bar"></div>
@@ -287,7 +287,7 @@
 <span style="color:#75715e"># → Ambiente idéntico al de CI. En menos de 10 minutos.</span></code></pre>
         </div>
       </div>
-      <aside class="notes">Mostrar el .tool-versions real. Un archivo, un comando. asdf install lo lee y configura todo.</aside>
+      <aside class="notes">La corrección tomó 20 minutos. Estandarizarlo: un archivo .tool-versions con asdf o mise — mismo runtime en local, CI, staging y prod. Un comando. "Resolver una vez, bien, para todos. Los pequeños cambios son los que generan gran impacto." Transición: "Mismo terreno, mismo runtime, en todas las condiciones. Pero fue ahí cuando me di cuenta — el terreno en sí era diferente para cada equipo."</aside>
     </section>
     </section>
 
@@ -339,7 +339,15 @@
         </div>
         <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Nadie había escrito qué significaba 'listo para producción'"</div>
       </div>
-      <aside class="notes">"La consistencia de entornos es el mínimo. Lo que viene es más difícil — acuerdos." Monolito: un solo repo, back + front + DB, equipo dedicado por submódulo. Sin estándar de deploys — Terraform, packaging manual, GitHub Actions, Azure DevOps, SSH. Cada equipo había llegado ahí solo. Los servicios empezaron a perder el hilo entre sí — silencioso al principio, sin errores visibles. Los reportes llegaron después. "Debuggear en un sistema así es arqueología. No buscas el bug todavía — primero tienes que entender qué está corriendo y desde cuándo." "En algún punto dejé de buscar qué se había roto. Empecé a buscar cuál era la forma correcta." No había respuesta — no porque nadie supiera, sino porque nadie lo había decidido. Y no era la primera vez — era la tercera en pocos meses. Distinto equipo, distinto servicio, mismo problema. [Pausa.] Esa semana escribimos el primer workflow compartido. Tres meses después los cinco equipos lo usaban. Y fue ahí, cuando más dependían de nosotros, que nos convertimos en exactamente lo que queríamos resolver. [Pausa.] "Éramos el cuello de botella." Todo como código = contratos de confiabilidad. Golden path = invitación, no mandato. [↓ código]</aside>
+      <aside class="notes">[Viene de 5a: "el terreno en sí era diferente para cada equipo."]
+"La consistencia de entornos es el mínimo. Lo que viene es más difícil — acuerdos."
+ESCENA: Monolito. Back + front + DB. Un equipo por submódulo, autonomía total. Terraform, packaging manual, GH Actions, Azure DevOps, SSH — cada uno llegó ahí solo.
+PROBLEMA: Los servicios pierden el hilo. Silencioso al principio. Sin errores visibles. Los reportes llegan después.
+"Debuggear en un sistema así es arqueología — primero tienes que entender qué está corriendo y desde cuándo."
+PIVOT: "Dejé de buscar qué se rompió. Empecé a buscar cuál era la forma correcta." No había respuesta — nadie lo había decidido. Era la tercera vez en pocos meses.
+SOLUCIÓN: Primer workflow compartido. Tres meses → cinco equipos.
+[Pausa.] "Y fue ahí, cuando más dependían de nosotros, que nos convertimos en exactamente lo que queríamos resolver."
+[Pausa larga.] "Éramos el cuello de botella." → [↓ código]</aside>
     </section>
     <section class="code-slide">
       <div class="top-bar"></div>
@@ -394,7 +402,7 @@ jobs:
           </div>
         </div>
       </div>
-      <aside class="notes">Izquierda: cada equipo tenía el suyo — SSH, rsync, pm2, sin tests, sin rollback. Derecha: un solo workflow reutilizable, tres parámetros. El equipo llama el contrato, la plataforma hace el resto.</aside>
+      <aside class="notes">"Esta es la solución." Izquierda: lo que cada equipo tenía — SSH, rsync, pm2, sin tests, sin rollback. Derecha: un solo workflow reutilizable, tres parámetros. El equipo llama el contrato, la plataforma hace el resto. IaC = contratos de confiabilidad — no scripts de automatización, acuerdos versionados y revisados.</aside>
     </section>
 
     <!-- SUB-SLIDE: WORKFLOW INTERNALS -->
@@ -436,7 +444,7 @@ jobs:
 # lo que nadie hacía solo — ahora es el default.</code></pre>
         </div>
       </div>
-      <aside class="notes">Tests obligatorios antes del deploy — nadie los corría antes. Rollback automático en fallo. Nadie tuvo que implementarlo — es el default para cualquier equipo que llame el workflow.</aside>
+      <aside class="notes">Tests obligatorios antes del deploy — nadie los corría antes. Rollback automático en fallo. Nadie tuvo que implementarlo — es el default para cualquier equipo que llame el workflow. Golden path = invitación, no mandato. El camino fácil debe ser el camino correcto. → "Pero tres meses después éramos el cuello de botella — cada equipo nos necesitaba para avanzar."</aside>
     </section>
     </section>
 
@@ -477,7 +485,12 @@ jobs:
         </div>
         <div class="story-quote fragment grow" data-id="story-quote" data-autoslide="0">"Completamente manual. Completamente evitable."</div>
       </div>
-      <aside class="notes">"La sensación cuando tus DMs son una cola de tickets." Gate: para, pide permiso, espera. Guardrail: avanza — aquí están los límites. Self-service = camino seguro = camino fácil. Policy-as-code: Checkov (escaneo estático IaC en CI — S3 público, sin encriptación, sin tags; zero config), Conftest+OPA (políticas custom: regiones permitidas, tags obligatorios, naming conventions), Sentinel (nativo Terraform Cloud), Infracost+OPA (bloquea PRs que excedan umbral de costo). Stack práctico: Checkov + Infracost. Plataforma como producto: demos internas, "¿cuál es tu mayor dolor?" Historia: secreto en el repo → cadena manual → avisar, rotar, limpiar, verificar. "Completamente manual. Completamente evitable." Scanner: segundos, sin cadena. "El objetivo dejó de ser construir la infraestructura correcta — se convirtió en construir infraestructura que otros equipos puedan usar sin llamarnos." → "¿Qué pasa cuando algo se rompe a las 2AM y nadie sabe dónde mirar?" [↓ código]</aside>
+      <aside class="notes">[Viene de 6b: "éramos el cuello de botella — cada equipo nos necesitaba para avanzar."]
+"La sensación cuando tus DMs son una cola de tickets."
+CONCEPTO: Gate = para, pide permiso, espera. Guardrail = avanza — aquí están los límites. Self-service = camino seguro = camino fácil.
+Policy-as-code: Checkov (IaC estático en CI — S3 público, sin encriptación, sin tags; zero config), Conftest+OPA (políticas custom: regiones, tags obligatorios, naming), Sentinel (nativo Terraform Cloud), Infracost+OPA (bloquea PRs sobre umbral de costo). Stack práctico: Checkov + Infracost.
+Plataforma como producto: demos internas, "¿cuál es tu mayor dolor?"
+HISTORIA: secreto en el repo → cadena manual → avisar, rotar, limpiar, verificar. "Completamente manual. Completamente evitable." Scanner: segundos, sin cadena. → [↓ código]</aside>
     </section>
     <section class="code-slide">
       <div class="top-bar"></div>
@@ -533,7 +546,9 @@ module "orders_api_alarm" {
           </div>
         </div>
       </div>
-      <aside class="notes">El guardrail en código: 6 líneas por equipo, el módulo hace el resto. Sin reunión, sin ticket, sin "¿pusiste la alarma?". Self-service con defaults seguros — el camino correcto es el camino fácil. En producción el source apunta a un repo compartido (terraform-modules) con tag de versión: git::https://github.com/org/terraform-modules.git//modules/lambda_timeout_alarm?ref=v1.2.0 — cualquier equipo en cualquier repo lo consume igual.</aside>
+      <aside class="notes">"Esta es la diferencia en código." 6 líneas por equipo, el módulo hace el resto. Sin reunión, sin ticket, sin "¿pusiste la alarma?".
+"El objetivo dejó de ser construir la infraestructura correcta — se convirtió en construir infraestructura que otros equipos puedan usar sin llamarnos."
+Source en producción apunta al repo compartido: git::https://github.com/org/terraform-modules.git//modules/lambda_timeout_alarm?ref=v1.2.0 — cualquier equipo en cualquier repo lo consume con un tag de versión.</aside>
     </section>
 
     <!-- SUB-SLIDE: INTERNALS -->
@@ -581,7 +596,8 @@ resource "aws_cloudwatch_metric_alarm" "timeout_alarm" {
 }</code></pre>
         </div>
       </div>
-      <aside class="notes">Lo que el módulo construye automáticamente — el equipo no necesita saber nada de esto. Filtros de logs, métrica personalizada, alarma con SNS. El camino seguro es el camino fácil.</aside>
+      <aside class="notes">Lo que el módulo construye automáticamente — el equipo no necesita saber nada de esto. Filtros de logs, métrica personalizada, alarma con SNS. El camino seguro es el camino fácil.
+→ "¿Qué pasa cuando algo se rompe a las 2AM y nadie sabe dónde mirar?"</aside>
     </section>
     </section>
 
@@ -636,7 +652,11 @@ resource "aws_cloudwatch_metric_alarm" "timeout_alarm" {
         </div>
         <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0" style="flex-shrink:0;">"Lo aprendimos a las malas."</div>
       </div>
-      <aside class="notes">"Una plataforma sin visibilidad es una caja negra con buena documentación." Dashboards para ellos, no para nosotros. DORA: Deployment Frequency, Lead Time, Change Failure Rate, MTTR. "Sin esas cuatro cifras no sabes si lo que construyes mueve la aguja." "Una hoja de cálculo y los datos de tu pipeline de CI ya te dan tres de las cuatro." Historia: peticiones sin llegar, sin lugar centralizado. "Llevaba veinte minutos en el servicio equivocado." Daño hecho. Esa semana: Kibana. "No porque alguien lo pidió — sino porque nos costó muy caro no tenerlo." Runbooks ejecutables = guardia más tranquila. → "Las cosas que desearía que alguien me hubiera dicho." [↓ código]</aside>
+      <aside class="notes">[Viene de 7b: "¿qué pasa cuando algo se rompe a las 2AM y nadie sabe dónde mirar?"]
+"Una plataforma sin visibilidad es una caja negra con buena documentación."
+Dashboards para ellos, no para nosotros — '¿mi servicio está sano? ¿mi pipeline está verde?' Sin abrir un ticket.
+DORA: Deployment Frequency, Lead Time for Changes, Change Failure Rate, MTTR. "Sin esas cuatro cifras no sabes si lo que construyes mueve la aguja." Una hoja de cálculo y los datos de tu pipeline de CI ya te dan tres de las cuatro.
+HISTORIA: Peticiones sin llegar. Sin lugar centralizado. Tocaba entrar servicio por servicio, log por log. "Llevaba veinte minutos en el servicio equivocado." Daño hecho — las pérdidas se contaban. Esa semana: Kibana. "No porque alguien lo pidió — sino porque nos costó muy caro no tenerlo." → [↓ código]</aside>
     </section>
     <section class="code-slide">
       <div class="top-bar"></div>
@@ -661,7 +681,10 @@ kubectl rollout status  deployment/payment-api -n prod --timeout=90s
 echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
         </div>
       </div>
-      <aside class="notes">fix-connection-pool.sh — escrito después del incidente de agotamiento del pool de conexiones. set -euo pipefail: falla inmediato ante cualquier error. kubectl rollout restart: recrea los pods de payment-api en prod, drenando el pool. kubectl rollout status --timeout=90s: espera y confirma que el rollout completó. Total: menos de 2 minutos. Antes: 20 minutos buscando en Slack quién sabe qué hacer.</aside>
+      <aside class="notes">"Cada incidente es una mejora de plataforma esperando suceder. No '¿quién falló?' — '¿qué haría que esto fuera imposible?'"
+fix-connection-pool.sh — incidente distinto al de Kibana: agotamiento del pool de conexiones. set -euo pipefail: falla inmediato ante cualquier error. kubectl rollout restart: recrea los pods drenando el pool. kubectl rollout status --timeout=90s: confirma que completó. Total: menos de 2 minutos. Antes: 20 minutos buscando en Slack quién sabe qué hacer.
+"La guardia se volvió mucho más tranquila."
+→ "Las cosas que desearía que alguien me hubiera dicho."</aside>
     </section>
     </section>
 
@@ -694,7 +717,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
           </div>
         </div>
       </div>
-      <aside class="notes">"Tres cosas. Si no te llevas nada más, llévate estas." [Levanta dedos.] 1: DX primero — nuevo en menos de una hora = bug de plataforma. Mide el tiempo de incorporación. 2: Mejor herramienta = la que usan. Optimiza velocidad de product teams. Adopción es una feature. 3: Plataforma nunca terminada = tiene usuarios = trátala como producto. Cuando elijas entre gate y guardrail — elige siempre el guardrail.</aside>
+      <aside class="notes">[Viene de 8a: "las cosas que desearía que alguien me hubiera dicho."] "Tres cosas. Si no te llevas nada más, llévate estas." [Levanta dedos.] 1: DX primero — nuevo en menos de una hora = bug de plataforma. Mide el tiempo de incorporación. 2: Mejor herramienta = la que usan. Optimiza velocidad de product teams. Adopción es una feature. 3: Plataforma nunca terminada = tiene usuarios = trátala como producto. Cuando elijas entre gate y guardrail — elige siempre el guardrail.</aside>
     </section>
 
     <!-- SLIDE 10: PLAN DE ACCIÓN -->
@@ -745,7 +768,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
           <img src="../assets/QR_FLYER.jpeg" style="width:52px;height:52px;object-fit:contain;cursor:pointer;border-radius:4px;" onclick="showQR('../assets/QR_FLYER.jpeg')">
         </div>
       </div>
-      <aside class="notes">[Deja la slide visible 10 segundos antes de hablar.] "Esto es lo que yo haría en la próxima semana." Mencionar el flyer.</aside>
+      <aside class="notes">[Viene de 9. Deja la slide visible 10 segundos antes de hablar.] "Esto es lo que yo haría en la próxima semana." Mencionar el flyer.</aside>
     </section>
 
     <!-- SLIDE 11: CIERRE -->
@@ -761,7 +784,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
           <p style="font-size:14px;color:#E8560A;letter-spacing:0.5px;">jonathanstrf.github.io/platform-engineering-journey</p>
         </div>
       </div>
-      <aside class="notes">"Platform Engineering no se trata de Kubernetes. No se trata de Terraform. No se trata de ninguna herramienta en particular. Se trata de los cinco equipos que dejaron de bloquearse. Del dev que llegó un lunes y estaba en producción el viernes." [Pausa larga. Misma frase que slide 2 — ahora conclusión ganada, no promesa. No la digas igual — deja que el silencio la amplifique.] "Cualquier desarrollador debería poder llegar a producción sin depender de nadie." [Pausa. Sonríe.] Q&amp;A preparadas: startup de 10 personas, cuánto tiempo resultados, qué fue lo más difícil aprender.</aside>
+      <aside class="notes">"Platform Engineering no se trata de Kubernetes. No se trata de Terraform. No se trata de ninguna herramienta en particular. Se trata de los cinco equipos que dejaron de bloquearse. Del dev que llegó un lunes y estaba en producción el viernes." [Pausa larga. Misma frase que slide 2 — ahora conclusión ganada, no promesa. No la digas igual — deja que el silencio la amplifique.] "Cualquier desarrollador debería poder llegar a producción sin depender de nadie." [Pausa. Sonríe.] "Espacio abierto para debate y lo que quieran traer a la mesa." Q&amp;A preparadas: startup de 10 personas, cuánto tiempo resultados, qué fue lo más difícil aprender.</aside>
     </section>
 
   </div>
