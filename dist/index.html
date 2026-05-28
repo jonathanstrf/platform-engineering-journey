@@ -128,6 +128,10 @@
         <p style="font-size:22px;color:#e8e8e8;margin-bottom:6px;"><strong>Jonathan Ramírez</strong> <span style="color:#aaa;">· N-iX</span></p>
         <p style="font-size:16px;color:#E8560A;">Track de Platform Engineering · DevOpsDays Medellín 2026</p>
       </div>
+      <div style="position:absolute;bottom:20px;right:32px;display:flex;flex-direction:column;align-items:center;gap:5px;z-index:12;">
+        <img src="../assets/QR_PAGE.jpg" style="width:52px;height:52px;object-fit:contain;cursor:pointer;border-radius:4px;background:#fff;padding:3px;" onclick="showQR('../assets/QR_PAGE.jpg')">
+        <span style="font-size:11px;color:#888;letter-spacing:0.5px;">Ver slides</span>
+      </div>
       <aside class="notes">Persona inquieta. Repo fósil. npm install → errores. Dos horas. "Y uno sabe que la cosa se puso seria cuando tiene que detener la música." Node 18 vs Node 24. Bajé la versión. Funcionó. "Horas para descubrir que el problema era un número." "Apuesto a que al menos la mitad de ustedes tiene una historia exactamente así." [Pausa. Avanzar — no te presentes todavía.]</aside>
     </section>
 
@@ -700,7 +704,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:12px;">Tu plan de acción</div>
         <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;padding:12px 48px 0;">
-          <div class="fragment fade-from-tl" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+          <div class="fragment fade-from-tl" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
             <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">Entornos</span></div>
             <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
               <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:16px;color:#2D2D2D;line-height:1.4;">Agrega .tool-versions a cada repositorio</span></div>
@@ -709,7 +713,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
               <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:16px;color:#2D2D2D;line-height:1.4;">Automatiza el setup con un solo comando</span></div>
             </div>
           </div>
-          <div class="fragment fade-from-tr" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+          <div class="fragment fade-from-tr" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
             <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">Infraestructura</span></div>
             <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
               <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:16px;color:#2D2D2D;line-height:1.4;">Audita cómo despliega cada equipo</span></div>
@@ -718,7 +722,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
               <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:16px;color:#2D2D2D;line-height:1.4;">Asigna un dueño a cada servicio en un catálogo</span></div>
             </div>
           </div>
-          <div class="fragment fade-from-bl" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+          <div class="fragment fade-from-bl" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
             <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">Escala</span></div>
             <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
               <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:16px;color:#2D2D2D;line-height:1.4;">Haz una lista de lo que los equipos te piden</span></div>
@@ -727,7 +731,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
               <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:16px;color:#2D2D2D;line-height:1.4;">Documenta tu golden path de principio a fin</span></div>
             </div>
           </div>
-          <div class="fragment fade-from-br" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+          <div class="fragment fade-from-br" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
             <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">Visibilidad</span></div>
             <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
               <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:16px;color:#2D2D2D;line-height:1.4;">Calcula tus 4 métricas DORA antes de cualquier iniciativa</span></div>
