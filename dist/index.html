@@ -135,7 +135,7 @@
     <section>
       <div class="top-bar" data-id="top-bar"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;">
-        <div style="font-size:17px;color:#E8560A;font-weight:700;letter-spacing:1px;padding:24px 64px 0;">El hilo conductor</div>
+        <div style="font-size:16px;color:#E8560A;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:24px 64px 0;">El hilo conductor</div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:32px 80px;">
           <div style="background:#FDE8DA;border:1px solid #E0E0E0;border-left:4px solid #E8560A;border-radius:4px;padding:48px 56px;">
             <p style="font-family:'Arial Black',Arial,sans-serif;font-size:42px;font-weight:900;color:#2D2D2D;line-height:1.3;text-align:center;">Cualquier desarrollador debería poder llegar a producción sin depender de nadie.</p>
@@ -738,8 +738,8 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
           </div>
         </div>
         <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:8px 48px 10px;flex-shrink:0;">
-          <span style="font-size:13px;color:#555;font-style:italic;">Ver presentación →</span>
-          <img src="../assets/QR_PAGE.jpg" style="width:52px;height:52px;object-fit:contain;cursor:pointer;border-radius:4px;" onclick="document.getElementById('qr-lightbox').style.display='flex'">
+          <span style="font-size:13px;color:#555;font-style:italic;">Descarga el flyer →</span>
+          <img src="../assets/QR_FLYER.jpeg" style="width:52px;height:52px;object-fit:contain;cursor:pointer;border-radius:4px;" onclick="showQR('../assets/QR_FLYER.jpeg')">
         </div>
       </div>
       <aside class="notes">[Deja la slide visible 10 segundos antes de hablar.] "Esto es lo que yo haría en la próxima semana." Mencionar el flyer.</aside>
@@ -754,7 +754,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
         <p style="font-size:20px;color:#555;font-style:italic;text-align:center;">Espacio abierto para debate y lo que quieran traer a la mesa.</p>
         <p style="font-size:16px;color:#444;text-align:center;"><strong style="color:#666;">Jonathan Ramírez</strong> · N-iX</p>
         <div style="display:flex;align-items:center;gap:14px;">
-          <img src="../assets/QR_PAGE.jpg" style="width:64px;height:64px;object-fit:contain;cursor:pointer;border-radius:4px;background:#fff;padding:4px;" onclick="document.getElementById('qr-lightbox').style.display='flex'">
+          <img src="../assets/QR_PAGE.jpg" style="width:64px;height:64px;object-fit:contain;cursor:pointer;border-radius:4px;background:#fff;padding:4px;" onclick="showQR('../assets/QR_PAGE.jpg')">
           <p style="font-size:14px;color:#E8560A;letter-spacing:0.5px;">jonathanstrf.github.io/platform-engineering-journey</p>
         </div>
       </div>
@@ -821,7 +821,13 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
 </script>
 <!-- QR lightbox overlay -->
 <div id="qr-lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:99999;align-items:center;justify-content:center;cursor:pointer;" onclick="this.style.display='none'">
-  <img src="../assets/QR_PAGE.jpg" style="width:380px;height:380px;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+  <img id="qr-lightbox-img" src="" style="width:380px;height:380px;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
 </div>
+<script>
+function showQR(src) {
+  document.getElementById('qr-lightbox-img').src = src;
+  document.getElementById('qr-lightbox').style.display = 'flex';
+}
+</script>
 </body>
 </html>
