@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>De Cero a Producción — Jonathan Ramírez</title>
+  <title>Un viaje de Platform Engineering — Jonathan Ramírez</title>
   <link rel="stylesheet" href="../vendor/reveal.js/dist/reset.css">
   <link rel="stylesheet" href="../vendor/reveal.js/dist/reveal.css">
   <link rel="stylesheet" href="../vendor/reveal.js/dist/theme/black.css">
@@ -35,7 +35,7 @@
       font-size:17px; color:#E8560A; letter-spacing:3px;
       text-transform:uppercase; padding:22px 48px 0; flex-shrink:0;
     }
-    .act-label .dim { color:#888; }
+    .act-label .dim { color:#666; }
     .slide-heading {
       font-size:38px; font-family:'Arial Black',Arial,sans-serif;
       font-weight:900; color:#2D2D2D; padding:10px 48px 0; flex-shrink:0;
@@ -122,9 +122,9 @@
       <div style="position:absolute;top:0;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);z-index:11;"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;padding:4px 64px 0 56px;">
         <div style="font-size:14px;color:#E8560A;font-weight:700;letter-spacing:1px;margin-bottom:28px;">N-iX</div>
-        <h1 style="font-family:'Arial Black',Arial,sans-serif;font-size:88px;font-weight:900;color:#e8e8e8;line-height:1;margin-bottom:20px;">De Cero a<br>Producción</h1>
-        <div style="width:100%;height:2px;background:rgba(255,255,255,0.12);margin-bottom:18px;"></div>
-        <p style="font-size:28px;color:#E8560A;font-style:italic;margin-bottom:52px;">Un viaje de Platform Engineering a través de equipos reales</p>
+        <h1 style="font-family:'Arial Black',Arial,sans-serif;font-size:64px;font-weight:900;color:#e8e8e8;line-height:1.15;margin-bottom:8px;">Un viaje de Platform Engineering</h1>
+        <p style="font-size:36px;color:#E8560A;font-style:italic;margin-bottom:32px;">a través de equipos reales</p>
+        <div style="width:100%;height:2px;background:rgba(255,255,255,0.12);margin-bottom:24px;"></div>
         <p style="font-size:22px;color:#e8e8e8;margin-bottom:6px;"><strong>Jonathan Ramírez</strong> <span style="color:#aaa;">· N-iX</span></p>
         <p style="font-size:16px;color:#E8560A;">Track de Platform Engineering · DevOpsDays Medellín 2026</p>
       </div>
@@ -138,9 +138,9 @@
         <div style="font-size:17px;color:#E8560A;font-weight:700;letter-spacing:1px;padding:24px 64px 0;">El hilo conductor</div>
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:32px 80px;">
           <div style="background:#FDE8DA;border:1px solid #E0E0E0;border-left:4px solid #E8560A;border-radius:4px;padding:48px 56px;">
-            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:42px;font-weight:900;color:#2D2D2D;line-height:1.3;text-align:center;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
+            <p style="font-family:'Arial Black',Arial,sans-serif;font-size:42px;font-weight:900;color:#2D2D2D;line-height:1.3;text-align:center;">Cualquier desarrollador debería poder llegar a producción sin depender de nadie.</p>
           </div>
-          <p class="fragment fade-up" style="font-size:22px;color:#888;font-style:italic;text-align:center;">Todo lo demás es el camino para llegar ahí.</p>
+          <p class="fragment fade-up" style="font-size:22px;color:#666;font-style:italic;text-align:center;">Todo lo demás es el camino para llegar ahí.</p>
         </div>
       </div>
       <aside class="notes">[Avanzar en silencio. Deja que la frase llegue antes de hablar. No la leas. → Slide 3 para presentarte.]</aside>
@@ -217,7 +217,7 @@
             <div style="flex:1;height:72px;background:#F4F4F4;border:1px solid #E0E0E0;display:flex;align-items:center;padding:0 24px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#2D2D2D;">Tres cosas</span></div>
           </div>
         </div>
-        <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie."</div>
+        <div class="story-quote fragment fade-up" data-id="story-quote" data-autoslide="0">"Cualquier desarrollador debería poder llegar a producción sin depender de nadie."</div>
       </div>
       <aside class="notes">Recorre los 5 actos con la slide. No los expliques — solo los nombras. La audiencia sabe hacia dónde va.</aside>
     </section>
@@ -700,40 +700,40 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
       <div class="slide-body">
         <div class="slide-heading" style="padding-top:12px;">Tu plan de acción</div>
         <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;padding:12px 48px 0;">
-          <div class="fragment fade-from-tl" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Entornos</span></div>
-            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
-              <div style="font-size:15px;color:#4A4A4A;">☐ Agrega .tool-versions a cada repositorio</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Estandariza el gestor de versiones</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Mide el tiempo de onboarding ahora</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Automatiza el setup del entorno con un solo comando</div>
+          <div class="fragment fade-from-tl" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+            <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;">Entornos</span></div>
+            <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Agrega .tool-versions a cada repositorio</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Estandariza el gestor de versiones</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Mide el tiempo de onboarding ahora</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Automatiza el setup con un solo comando</span></div>
             </div>
           </div>
-          <div class="fragment fade-from-tr" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Infraestructura</span></div>
-            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
-              <div style="font-size:15px;color:#4A4A4A;">☐ Audita cómo despliega cada equipo</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Crea un módulo de IaC compartido</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Define qué es un deploy correcto</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Asigna un dueño explícito a cada servicio en un catálogo compartido</div>
+          <div class="fragment fade-from-tr" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+            <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;">Infraestructura</span></div>
+            <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Audita cómo despliega cada equipo</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Crea un módulo de IaC compartido</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Define qué es un deploy correcto</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Asigna un dueño a cada servicio en un catálogo</span></div>
             </div>
           </div>
-          <div class="fragment fade-from-bl" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Escala</span></div>
-            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
-              <div style="font-size:15px;color:#4A4A4A;">☐ Haz una lista de lo que los equipos te piden</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Reemplaza los gates por guardrails</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Mide el NPS interno de tu plataforma cada trimestre</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Documenta tu golden path con un ejemplo real de principio a fin</div>
+          <div class="fragment fade-from-bl" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+            <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;">Escala</span></div>
+            <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Haz una lista de lo que los equipos te piden</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Reemplaza los gates por guardrails</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Mide el NPS interno cada trimestre</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Documenta tu golden path de principio a fin</span></div>
             </div>
           </div>
-          <div class="fragment fade-from-br" data-fragment-index="1" style="background:#F4F4F4;border:1px solid #E0E0E0;display:flex;flex-direction:column;">
-            <div style="background:linear-gradient(90deg,#E8560A,#C94D08);padding:12px 18px;display:flex;align-items:center;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;">Visibilidad</span></div>
-            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
-              <div style="font-size:15px;color:#4A4A4A;">☐ Calcula tus 4 métricas DORA antes de cualquier iniciativa</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Expón métricas a los equipos dependientes</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ Tras cada incidente: ¿qué lo haría imposible?</div>
-              <div style="font-size:15px;color:#4A4A4A;">☐ SLOs para servicios críticos — compártelos</div>
+          <div class="fragment fade-from-br" data-fragment-index="1" style="background:#fff;border:1px solid #E0E0E0;border-top:3px solid #E8560A;display:flex;flex-direction:column;">
+            <div style="padding:12px 18px 8px;"><span style="font-family:'Arial Black',Arial,sans-serif;font-size:18px;font-weight:900;color:#2D2D2D;">Visibilidad</span></div>
+            <div style="flex:1;padding:4px 18px 14px;display:flex;flex-direction:column;gap:9px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Calcula tus 4 métricas DORA antes de cualquier iniciativa</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Expón métricas a los equipos dependientes</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">Tras cada incidente: ¿qué lo haría imposible?</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#E8560A;flex-shrink:0;font-size:14px;line-height:1.6;font-weight:700;">→</span><span style="font-size:15px;color:#2D2D2D;line-height:1.4;">SLOs para servicios críticos — compártelos</span></div>
             </div>
           </div>
         </div>
@@ -750,7 +750,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
       <div class="top-bar" data-id="top-bar"></div>
       <div style="position:absolute;top:0;left:0;width:18px;bottom:0;background:linear-gradient(180deg,#E8560A,#C94D08);z-index:11;"></div>
       <div style="display:flex;flex-direction:column;height:100%;padding-top:4px;justify-content:center;align-items:center;gap:28px;padding-left:56px;padding-right:64px;">
-        <p style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1.25;text-align:center;max-width:900px;">Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie.</p>
+        <p style="font-family:'Arial Black',Arial,sans-serif;font-size:52px;font-weight:900;color:#E8560A;line-height:1.25;text-align:center;max-width:900px;">Cualquier desarrollador debería poder llegar a producción sin depender de nadie.</p>
         <p style="font-size:20px;color:#555;font-style:italic;text-align:center;">Espacio abierto para debate y lo que quieran traer a la mesa.</p>
         <p style="font-size:16px;color:#444;text-align:center;"><strong style="color:#666;">Jonathan Ramírez</strong> · N-iX</p>
         <div style="display:flex;align-items:center;gap:14px;">
@@ -758,7 +758,7 @@ echo "✓ Done. MTTR objetivo: &lt; 2 min."</code></pre>
           <p style="font-size:14px;color:#E8560A;letter-spacing:0.5px;">jonathanstrf.github.io/platform-engineering-journey</p>
         </div>
       </div>
-      <aside class="notes">"Platform Engineering no se trata de Kubernetes. No se trata de Terraform." [Pausa larga. Misma frase que slide 2 — ahora conclusión ganada, no promesa. No la digas igual — deja que el silencio la amplifique.] "Un desarrollador debería poder pasar de cero a listo para producción sin llamar a nadie." [Pausa. Sonríe.] Q&amp;A preparadas: startup de 10 personas, cuánto tiempo resultados, qué fue lo más difícil aprender.</aside>
+      <aside class="notes">"Platform Engineering no se trata de Kubernetes. No se trata de Terraform." [Pausa larga. Misma frase que slide 2 — ahora conclusión ganada, no promesa. No la digas igual — deja que el silencio la amplifique.] "Cualquier desarrollador debería poder llegar a producción sin depender de nadie." [Pausa. Sonríe.] Q&amp;A preparadas: startup de 10 personas, cuánto tiempo resultados, qué fue lo más difícil aprender.</aside>
     </section>
 
   </div>
